@@ -1,0 +1,154 @@
+\documentclass[pdftex,letterpaper,11pt]{article}%
+\usepackage[export]{adjustbox}
+\usepackage{multirow}
+\usepackage[arabicsections]{dpugatex}
+%\usepackage{dpppl}
+%\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{longtable}
+
+\usepackage{tikz}
+
+\usepackage[british]{babel}
+\usepackage{amssymb,amsmath,warpcol,url,ctable,multirow,caption,threeparttable,float,soul,gensymb}
+%\usepackage[noend]{algpseudocode}
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+
+\usepackage{subcaption}
+
+
+\usepackage{xcolor,colortbl}%Per colorejar cel·les de les taules
+\definecolor{verylightgray}{gray}{0.90}
+\newcommand{\verylightgray}[1]{\cellcolor{verylightgray}#1}
+
+
+\usepackage{arydshln} %Per dashed lines
+\setlength\dashlinedash{1.5pt}
+\setlength\dashlinegap{2.5pt}
+\setlength\arrayrulewidth{0.8pt}
+
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\usepackage{soul}
+\setstcolor{red} % Tatxat vermell pel text a eliminar!!!!
+\definecolor{lightgreen}{rgb}{0.564706,0.933333,0.564706}
+\newcommand{\miquel}[1]{{\sethlcolor{lightgreen} \hl{#1}} } % To highlight with light green Miquel's comments.
+\soulregister\citet7 % These \soulregister commands allow us to avoid problems between soul functions (\hl, \st, ...) and these other functions (\citet,\citep,\ref,\footnote, ...). Include more if it is necessary.
+\soulregister\citep7
+\soulregister\cite7
+\soulregister\ref7
+\soulregister\footnote7
+\soulregister\textit7
+\soulregister\textbf7
+\soulregister\textsc7
+\soulregister\`7 % for open accents.
+\soulregister\'7 % for closed accents.
+\soulregister\% 7 % for \%age symbol
+\usepackage{tabularx,tabulary}
+\usepackage[osf]{mathpazo} % Amb aquest paquet faig ús de la lletra Palatino, la que fan servir Puga, Duranton et al. Amb l'opció [osf] la numeració és "old fashion", però és incompatible amb un títol en negreta i small caps (desapareixen les small caps!). Per tant, per ara opto per NO aplicar aquesta opció.
+\usepackage[abs]{overpic}
+
+\usepackage{hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks=true, breaklinks=true, citecolor= darkblue, linkcolor=blue, urlcolor=blue}
+
+\usepackage{chngcntr}
+
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\mcc}[1]{\multicolumn{1}{c}{#1}}
+\newcommand{\mcb}[1]{\multicolumn{1}{c}{\bf #1}}
+
+\newcommand{\mr}[3]{\multirow{#1}{#2}{#3}} % Per fer Files múltiples (seguint el punt de vista de les columnes múltiples.
+\newcommand{\mg}[3]{\multicolumn{#1}{#2}{\verylightgray #3}} %Combino el color de les cel·les amb al command de les columnes múltiples.
+
+
+
+%\hypersetup{%
+ % pdftitle={Race and neighborhoods in the 21$^{\text{st}}$ century},%
+ % pdfauthor={Jorge De la Roca (NYU) , Ingrid Gould Ellen (NYU) and Katherine O'Regan (NYU)},%
+ % pdfkeywords={race segregation, discrimination}}
+%\pdfOpenFitWidth
+%\pdfShowBookmarks
+
+\onehalfspacing%
+%\doublespacing%
+
+\newenvironment{tablenote}[1]{\begin{list}{}{\vskip-5mm\relax
+\setlength{\leftmargin}{#1} \setlength{\rightmargin}{\leftmargin}}
+\item[]\footnotesize\vskip-7pt
+{\em Notes}:\space\ignorespaces}{\end{list}}
+
+\newcommand{\jdlradded}[1]{#1}
+\newcommand{\dpadded}[1]{#1}
+\newcommand{\jdlrdeleted}[1]{}
+\newcommand{\dpdeleted}[1]{}
+\newcommand{\jdlrcomment}[1]{}
+\newcommand{\dpcomment}[1]{}
+\newcommand{\comment}[1]{}
+\newcommand{\martin}[1]{{\color{blue} Martin: [{#1}]}}
+\newcommand{\dani}[1]{{\color{purple} Dani: [{#1}]}}
+
+\begin{document}
+\begin{titlepage}
+\vspace*{1ex}
+\begin{minipage}{\textwidth}
+\begin{center}%
+
+    {\textsb{\LARGE \textit{``Learning from Deep Learning''}\\ Lessons from using computer vision to identify (urban) form and function in open data satellite imagery}}\\[4ex]%
+
+{\Large\textsb{Martin Fleischmann}\footnote[1]{THANKS.}\footnote[2]{Geographic
+Data Science Lab, Department of Geography and Planning, University of
+Liverpool, Roxby Building , 74 Bedford St S , Liverpool , L69 7ZT, United
+Kingdom}\footnote[4]{
+E-mail: \url{M.Fleischmann@liverpool.ac.uk}; website: \url{https://martinfleischmann.net/}.}}\\[1mm]
+%
+{\Large\textbf{Daniel Arribas-Bel}\footnotemark[1]\footnotemark[2]\footnote[3]{E-mail: \url{D.Arribas-Bel@liverpool.ac.uk}; phone: +44 (0)151 795 9727; website: \url{http://darribas.org}.
+}}\footnote[5]{The Alan Turing Institute, British Library, 96 Euston Road, London, England, NW1 2DB, United Kingdom}
+\\[1mm]
+{\large\textit{Geographic Data Science Lab, University of Liverpool} }\\
+{\large\textit{The Alan Turing Institute} }\\[2.5ex]
+%
+\date{\today}\vspace{1.5ex}
+%
+\end{center}
+%
+\begin{abstract}
+The building blocks that make up cities -the activities and agents conceptualised as urban function, and the structure that supports them conceptualised as urban form- can be spatially arranged in many ways. This paper relies on the concept of ``spatial signatures'', a characterisation of space designed to understand urban environments, that exhaustively divide geographical space into distinct classes based on form and function. Due to the dependency on data sources that are being updated at a variable rate, signatures cannot be easily updated with frequency. One possible solution comes from remote sensing and satellite imagery. While staying in the realm of open data, we explore this pathway using the Sentinel-2 imagery within a deep convolutional neural network (CNN) trained to predict spatial signature type across Great Britain. Our focus is not only to develop a performant CNN but also to learn about the nature of the classes we try to predict (appropriate scale, inter-class relationships) through the lens provided by the neural network. With Sentinel-2 being relatively coarse in the resolution, there are not only technical questions of the CNN architecture, but also geographical ones related to the Modifiable Areal Unit Problem and the ability of samples to capture the nature of each signature type. Furthermore, there is the question of to which degree signatures can be seen from space. We present exploratory work and empirical experiments, and discuss the opportunities and challenges in using remote sensing to reliably detect concepts like spatial signatures using openly available satellite imagery.
+\end{abstract}
+%
+\vspace{1.5ex}
+%
+Key words: \hskip.25em spatial signatures, classification, remote sensing, artificial intelligence, open data\\
+%
+\vspace*{-1.5ex}
+%
+\end{minipage}
+\end{titlepage}
+
+% Section 1 - Intro
+\input{s1_intro.tex}
+
+% Section 2 - Materials & Methods
+\input{s2_materials_methods.tex}
+
+% Section 3 - Results
+\input{s3_results.tex}
+
+% Section 4 - Discussion
+\input{s4_discussion.tex}
+
+\clearpage
+
+\bibliographystyle{apalike}
+\bibliography{refs}
+
+\clearpage
+
+\input{sa_appendix.tex}
+
+\clearpage
+
+\end{document}
