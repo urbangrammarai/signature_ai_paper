@@ -1,9 +1,54 @@
 \section{Materials and Methods}
 \label{sec:matmet}
 
+In this section we present the materials used in the research - the British spatial signatures used as to generate labels for individual chips and Sentinel 2 satellite imagery - and methods designed to unpack the role of geography in image-based deep learning.
+
 \subsection{Materials}
 
+The whole research uses only two data inputs, one representing the "ground truth" we are aiming to predict using neural networks and the other representing the satellite imagery. While the latter does not need a lot of introduction, British spatial signatures used as the ground truth data need to be explained further.
+
 \subsubsection{British Spatial Signatures}
+
+Spatial signatures are a way of classification of space covering entirety of a case study area. They are defined as \textit{"a characterisation of space based on form and function designed to understand urban environments"} \citep{dab_mf_2021a} and the definition already points at the clear distinction between signatures and traditional Land Use / Land Cover (LULC) classifications. Taking the example of CORINE (REF) as a representative of LULC, it has 44 distinct classes, out of which 2 cover urban form and other 6 can be loosely related to urban areas\footnote{Continuous urban fabric, Discontinuous urban fabric; Construction sites, Green urban areas, Sport and leisure facilities, Industrial or commercial units, Road and rail networks and associated land, Port areas}. A similar situation is with recently released global LULC datasets. ESA's WorldCover project distinguishes 11 classes of which one is urban (Built-up) REF. ESRI's Land cover has 9 classes where one is \textit{Built Area} and the rest covers unbuilt areas. This ratio of built vs unbuilt classes is typical but not very suited for research applications focusing on urban environments. Spatial signatures tend to flip this ratio as they are primarily classifying urban space.
+
+There are two key main concepts delivering urban-focused classification. The first one is the spatial unit called enclosed tessellation cell (ETC). To derive ETCs, we first generate \textit{enclosures}, a space fully enclosed by a set of barriers (roads, railways, rivers, coastline). ETCs are then a result of Voronoi tessellation based on building footprint polygons. The resulting spatial unit has adaptive granularity reflecting the scale of each individual urban pattern. The second is the selection of characters describing each ETC. We measure form and function, both primarily urban phenomena.
+
+% We may want to add a figure explaining ETCs here.
+
+British spatial signatures are one application of the concept of spatial signatures in the context of Great Britain REF SDATA. It divides the space into 16 data-driven classes listed in the table REF TABLE. Out of these 16 classes, 9 are entirely urban, 4 are peripheral and only 3 are classifying countryside.
+
+
+\begin{tabular}{lrrrr}
+    \caption{\label{tab:sig_types}Classes of British spatial signatures and their coverage in terms of area and a number of ETCs.}\\
+    \toprule
+    {} &        total area &  total ETC count &  percentage of area &  percentage of ETCs \\
+    signature\_type                       &             &         &            &             \\
+    \midrule
+    Countryside agriculture              & 93856149107 & 3022385 &         41 &          21 \\
+    Accessible suburbia                  &  2244586111 & 1962830 &          1 &          14 \\
+    Dense residential neighbourhoods     &   957262179 &  502835 &          0 &           3 \\
+    Connected residential neighbourhoods &   565403381 &  374090 &          0 &           3 \\
+    Dense urban neighbourhoods           &   570629053 &  238639 &          0 &           2 \\
+    Open sprawl                          &  5081598096 & 2561211 &          2 &          18 \\
+    Wild countryside                     & 91306307616 &  595902 &         40 &           4 \\
+    Warehouse/Park land                  &  2462472439 &  707211 &          1 &           5 \\
+    Gridded residential quarters         &   261254080 &  209959 &          0 &           1 \\
+    Urban buffer                         & 31588874152 & 3686554 &         14 &          25 \\
+    Disconnected suburbia                &   708961672 &  564318 &          0 &           4 \\
+    Local urbanity                       &   231157300 &   86380 &          0 &           1 \\
+    Concentrated urbanity                &     7883216 &    1390 &          0 &           0 \\
+    Regional urbanity                    &    76439673 &   21760 &          0 &           0 \\
+    Metropolitan urbanity                &    16582607 &    3739 &          0 &           0 \\
+    Hyper concentrated urbanity          &     2293596 &     264 &          0 &           0 \\
+    \bottomrule
+\end{tabular}
+
+
+
+% add figure
+
+
+
 
 \subsubsection{Sentinel 2 imagery}
 
