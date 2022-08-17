@@ -20,7 +20,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add paper/signature_ai.pdf
+          git add signature_ai.pdf
           git commit -m "Build PDF" -a --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
