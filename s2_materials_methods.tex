@@ -44,19 +44,22 @@ cover patterns.
 
 % We may want to add a figure explaining ETCs here.
 
-British spatial signatures are one application of the concept of spatial signatures in
-the context of Great Britain REF SDATA. It divides the space into 16 data-driven classes
-(figure \ref{fig:signatures}) listed in the table \ref{tab:sig_types}. Out of these 16
-classes, 9 are entirely urban, 4 are peripheral and only 3 are classifying countryside,
-completely flipping the ratio of built vs unbuilt classes known from LULC. However, out
-of these 16 classes, some are very scarce and it would not be feasible to attempt to
-predict them. Therefore, we merge 5 classes falling under the "urbanity" group into a
+British spatial signatures as presented in \cite{fleischmann2022geographical} are one
+application of the concept of spatial signatures in
+the context of Great Britain. It divides the space into 16 data-driven classes
+(Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Out of these 16
+classes, nine are entirely urban, four are peripheral and only three are
+classifying natural spaces,
+inverting the ratio of built vs unbuilt classes known from LULC. However, out
+of these 16 classes, some are very rare and it would not be feasible to attempt to
+predict them. Therefore, we merge five classes falling under the "urbanity" group into a
 single one and use resulting 12 classes throughout this paper.
 
 
-\begin{tabular}{lrrrr}
+\begin{table}
     \caption{\label{tab:sig_types}Classes of British spatial signatures and their
-    coverage in terms of area and a number of ETCs.}\\
+    coverage in terms of area and a number of ETCs.}
+\begin{tabular}{lrrrr}
     \toprule
     {} &        total area (sq.km) &  total ETC count &  percentage of area &
     percentage of ETCs \\
@@ -97,6 +100,7 @@ single one and use resulting 12 classes throughout this paper.
     0 \\
     \bottomrule
 \end{tabular}
+\end{table}
 
 
 
@@ -115,7 +119,7 @@ single one and use resulting 12 classes throughout this paper.
 
 The second data input used in this research is satellite imagery provided by the
 Sentinel 2 mission. Specifically, we use the pre-processed cloud-free mosaic of Sentinel
-2 released by (REF https://www.sciencedirect.com/science/article/pii/S2352340920306314).
+2 released by \cite{CORBANE2020105737}.
 The mosaic provides pixel-level composite based on imagery for the period January 2017-
 December 2018 at an original resolution of 10 meters per pixel. While Sentinel 2
 captures many spectral bands beyond traditional visible red, green and blue (RGB), this
@@ -128,11 +132,11 @@ further spectral bands or other data (e.g. synthetic-aperture radar imagery).
 
 Another notable aspect of the Sentinel 2 imagery is the resolution. Ten meters per pixel
 may be enough to distinguish LULC classes as shown by the research project discussed
-above. However, there is a question whether it is enough in urban environments.
-Individual buildings often don't stretch beyond the spatial extent of two pixels, which
-is severely limiting what we can \textit{see} on the image, as illustrated on a figure
+above. However, there is the question of whether it is enough to segment urban environments.
+Individual buildings often do not stretch beyond the spatial extent of two pixels, which
+is severely limiting what we can \textit{see} on the image, as illustrated in Figure
 \ref{fig:signatures}. While other data sources may provide better resolution (REFS),
-potentially affecting the performance of the model, this research is bound within the
+potentially improving model performance, this research is bound within the
 limits of \textit{open data}, where Sentinel 2 is the best offering to date.
 
 
@@ -141,7 +145,7 @@ limits of \textit{open data}, where Sentinel 2 is the best offering to date.
 % 250 to explain the overarching experiments
 
 We define our challenge as an image classification task and use competing alternatives
-to explore which one performs best. Each of them imply geographically interesting
+to explore which one performs best. Each of them imply geographically relevant
 trade-offs. First, we build and train a model composed of a convolutional neural network
 and probability modelling able to predict the 12 classes derived from the spatial
 signatures. Second, we use methods designed to unveil which of the inherently
@@ -149,8 +153,9 @@ geographical decisions that are being tested has significant effect on the resul
 performance and should therefore be taken into account when applying CNN on spatial
 problems.
 
-Overall, the method is structured as a comparison of predictive models. Each model takes
-a set of chips as an input, runs the class prediction using the convolutional neural
+Overall, our exercise is structured as a comparison of models that attempt to
+predict the 12 spatial signatures entirely from Sentinel 2 imagery. Each model takes
+a set of chips as input, runs the class prediction using the convolutional neural
 network (CNN) and builds a (spatial) model on top of the resulting probabilities. The
 differences between the models are capturing the geographical options being tested - an
 extent of the area sampled from the satellite imagery into a single \textit{chip},
@@ -198,7 +203,7 @@ should be at least considered in an interpretation if not intentionally minimize
 
 In this work we try to understand the effect of a chip size by testing all the models
 based on four different chip sizes - 80, 160, 320 and 640 meters representing chips of
-8x8, 16x16, 32x32 and 64x64 pixels, illustrated on a figure \ref{fig:signatures}.
+8x8, 16x16, 32x32 and 64x64 pixels, illustrated on a Figure \ref{fig:signatures}.
 
 
 \begin{figure}
@@ -231,7 +236,7 @@ allows us to use spatial augmentation technique we call \textit{sliding}.
 
 Sliding can be seen as overlapping sampling. Instead of overlaying a grid of chips over
 target geometry and using each pixel only once, we take the initial grid and slide it a
-few pixels horizontally and vertically as illustrated on a figure \ref{fig:sliding}. If
+few pixels horizontally and vertically as illustrated on a Figure \ref{fig:sliding}. If
 the boundary of a slid chip is fully within a signature geometry, it is added to the
 pool of chips to be used. This process is done repeatedly to ensure that each class has
 a reasonable amount of chips to work with.
@@ -303,7 +308,11 @@ within 0 and 12x1.
 
 % Spatial modelling of probabilities TODO: Dani, from this section below are your bits.
 
+\hl{[Spatial modelling of probs. DAB to do]}
+
 \subsubsection{Performance metrics}
+
+\hl{[DAB to do]}
 
 % 500 words
 
@@ -317,3 +326,6 @@ within 0 and 12x1.
 % 250 words
 
 % explanation of regression approach
+
+\hl{[DAB to do]}
+
