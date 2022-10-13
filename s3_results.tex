@@ -145,5 +145,68 @@ N.                                                &      720    &      720    & 
 
 % table 2 spatial,
 
+\begin{table}
+        \begin{tabular}{lcccc}
+                \toprule
+                {} &  $JC$ & $\log(JC)$ & $JC$  & $\log(JC)$  \\
+                {} &  $W\_{thr}$ &  $W\_{thr}$ &  $W\_{union}$ &  $W\_{union}$ \\
+                \midrule
+                Intercept                                         &   4.3454*** &       1.4617*** &    4.7103*** &         1.6311*** \\
+                                                                  &    (0.9507) &        (0.1344) &     (0.5763) &          (0.1080) \\
+                (M) Logit E.                                      &     -0.1406 &         -0.0431 &       0.1851 &            0.0481 \\
+                                                                  &    (0.4951) &        (0.0700) &     (0.2995) &          (0.0561) \\
+                (M) Max. Prob.                                    &      0.1128 &         -0.1223 &       0.2819 &            0.0223 \\
+                                                                  &    (0.6442) &        (0.0911) &     (0.3887) &          (0.0728) \\
+                (A) M.O.R.                                        &  -3.1630*** &      -0.5744*** &   -2.7875*** &        -0.4647*** \\
+                                                                  &    (0.5494) &        (0.0777) &     (0.3301) &          (0.0619) \\
+                (A) S.I.C.                                        &      0.0119 &      -0.2390*** &    -0.6666** &           -0.0481 \\
+                                                                  &    (0.5532) &        (0.0782) &     (0.3329) &          (0.0624) \\
+                Chip Size                                         &   0.0297*** &         -0.0005 &      -0.0061 &        -0.0080*** \\
+                                                                  &    (0.0108) &        (0.0015) &     (0.0065) &          (0.0012) \\
+                W                                                 &    -0.9325* &       -0.1376** &   -0.9556*** &        -0.1785*** \\
+                                                                  &    (0.4945) &        (0.0699) &     (0.2991) &          (0.0560) \\
+                (S)Urbanity                                       &   4.6650*** &       0.6574*** &       0.1156 &           -0.1258 \\
+                                                                  &    (1.0696) &        (0.1512) &     (0.6460) &          (0.1211) \\
+                (S)Dense urban neighbourhoods                     &     1.7796* &       0.5094*** &       0.7480 &            0.1609 \\
+                                                                  &    (1.0695) &        (0.1512) &     (0.6487) &          (0.1216) \\
+                (S)Dense residential neighbourhoods               &     -0.8545 &          0.0672 &      -0.4636 &           -0.0920 \\
+                                                                  &    (1.0958) &        (0.1550) &     (0.6647) &          (0.1246) \\
+                (S)Connected residential neighbourhoods           &     -0.3656 &          0.1543 &      -0.4388 &           -0.1447 \\
+                                                                  &    (1.1018) &        (0.1558) &     (0.6647) &          (0.1246) \\
+                (S)Gridded residential quarters                   &     -0.2000 &          0.1009 &      -0.6203 &          -0.2111* \\
+                                                                  &    (1.0744) &        (0.1519) &     (0.6517) &          (0.1221) \\
+                (S)Disconnected suburbia                          &     -0.9752 &         -0.1719 &      -1.0303 &        -0.3358*** \\
+                                                                  &    (1.1213) &        (0.1586) &     (0.6684) &          (0.1252) \\
+                (S)Open sprawl                                    &     1.8342* &          0.1734 &    2.1575*** &         0.3576*** \\
+                                                                  &    (1.0604) &        (0.1499) &     (0.6432) &          (0.1205) \\
+                (S)Warehouse park land                            &      0.5496 &          0.2123 &      1.2245* &          0.3054** \\
+                                                                  &    (1.0694) &        (0.1512) &     (0.6487) &          (0.1216) \\
+                (S)Urban buffer                                   &     -0.0558 &         -0.0931 &    2.7027*** &         0.5164*** \\
+                                                                  &    (1.0521) &        (0.1488) &     (0.6382) &          (0.1196) \\
+                (S)Countryside agriculture                        &     -1.3759 &        -0.2511* &       0.6623 &            0.0670 \\
+                                                                  &    (1.0521) &        (0.1488) &     (0.6382) &          (0.1196) \\
+                (S)Wild countryside                               &    -2.0183* &      -0.5065*** &      -0.5918 &           -0.1635 \\
+                                                                  &    (1.0521) &        (0.1488) &     (0.6382) &          (0.1196) \\
+\midrule
+                $R^2$                                             &      0.1589 &          0.1954 &       0.2118 &            0.2660 \\
+                $R^2$ Adj.                                        &      0.1368 &          0.1743 &       0.1913 &            0.2468 \\
+                N.                                                &      665    &      665        &   670        &     670           \\
+                \bottomrule
+                \end{tabular}
+    \caption{\label{tab:non_sp_reg_wc}\footnotesize Regression outputs explaining
+            (log of) differences in the spatial pattern between observed and predicted values,
+            as measured by the Join Counts statistic. The Join Counts for each signature were computed
+            using two types of spatial weights: one based on a distance threshold of 1Km ($W\_{thr}$),
+            and another one built as a the union of nearest neighbor and queen contiguity matrices ($W\_{union}$).
+            Explanatory variables with a preceding (M), (A) and (S)
+    correspond to binary variables for the type of model (with histogram-based
+            boosted classifier, or \texttt{HGBC}, as the
+    baseline), architecture (with baseline image classification, or
+    \texttt{BIC}, as the baseline) and spatial signature (with Accessible
+    suburbia as the baseline),
+    respectively. Standard errors in parenthesis. Coefficients significant at
+    the 1\%, 5\%, 10\% level are noted with ***, **, and *, respectively.}
+\end{table}
+
 
 
