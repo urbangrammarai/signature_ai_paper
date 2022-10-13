@@ -5,5 +5,32 @@
 \subsection{Comparison of neural network architechture}
 \label{sec:appendixA}
 
-\subsection{Confusion matrices}
+\pagebreak
+
+\subsection{Within-class performance by spatial signature}
 \label{sec:appendixB}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/wc_accuracy_x_signature.png}
+    \caption{\footnotesize Within-class accuracy scores grouped by signature. Each panel
+    represents results from one of the 12 signatures predicted. Each column in
+    the heatmap
+    corresponds to one of the five models compared, namely:
+    histogram-based boosted classifier (\texttt{HGBC}) with features
+    pertaining only to a given chip (\texttt{baseline}) or including also features
+    from neighbouring ones (\texttt{baseline-wx}); Logit ensemble
+    (\texttt{logite}) with the same two variations; and a simpler maximum
+    probability approach (\texttt{maxprob}). Each row
+    corresponds to a pair of chipsize (8, 16, 32, and 64 pixels)
+    and architechture (baseline image classification, or \texttt{bic}; sliding
+            image classification, or \texttt{sic}; and multi-output
+    regression, or \texttt{mor}) used in the neural network stage of the
+    pipeline.}
+    \label{fig:wc_accuracy_x_signature}
+\end{figure}
+
+\pagebreak
+
+\subsection{Confusion matrices}
+\label{sec:appendixC}
