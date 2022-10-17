@@ -20,17 +20,18 @@ Spatial signatures are a way of classification of space covering entirety of a c
 study area. They are defined as \textit{"a characterisation of space based on form and
 function designed to understand urban environments"} \citep{dab_mf_2021a} and the
 definition already points at the clear distinction between signatures and traditional
-Land Use / Land Cover (LULC) classifications. Taking the example of CORINE (REF) as a
-representative of LULC, it has 44 distinct classes, out of which 2 cover urban form and
-other 6 can be loosely related to urban areas\footnote{Continuous urban fabric,
-Discontinuous urban fabric; Construction sites, Green urban areas, Sport and leisure
-facilities, Industrial or commercial units, Road and rail networks and associated land,
-Port areas}. A similar situation is with recently released global LULC datasets.
-European Space Agency's WorldCover project distinguishes 11 classes of which one is
-urban (Built-up) REF. Esri's Land cover has 9 classes where one is \textit{Built Area}
-and the rest covers unbuilt areas REF. This ratio of built vs unbuilt classes is typical
-but not very suited for research applications focusing on urban environments. Spatial
-signatures tend to flip this ratio as they are primarily classifying urban space.
+Land Use / Land Cover (LULC) classifications. Taking the example of CORINE
+\citep{europeanenvironmentagency1990} as a representative of LULC, it has 44 distinct
+classes, out of which 2 cover urban form and other 6 can be loosely related to urban
+areas\footnote{Continuous urban fabric, Discontinuous urban fabric; Construction sites,
+Green urban areas, Sport and leisure facilities, Industrial or commercial units, Road
+and rail networks and associated land, Port areas}. A similar situation is with recently
+released global LULC datasets. European Space Agency's WorldCover project distinguishes
+11 classes of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
+Land cover has 9 classes where one is \textit{Built Area} and the rest covers unbuilt
+areas \citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not
+very suited for research applications focusing on urban environments. Spatial signatures
+tend to flip this ratio as they are primarily classifying urban space.
 
 There are two key main concepts embedded in spatial signatures delivering urban-focused
 classification. The first one is the spatial unit called the enclosed tessellation cell
@@ -59,9 +60,9 @@ single one and use resulting 12 classes throughout this paper.
 \begin{table}
 \begin{tabular}{lrrrr}
     \toprule
-    {} &        total area (sq.km) &  total ETC count &  percentage of area &
-    percentage of ETCs \\
-    signature\_type                       &             &         &            &
+    {} &        area (sq.km) &  ETC count &  area (\%) &
+    ETCs (\%) \\
+    Signature type                       &             &         &            &
     \\
     \midrule
     Countryside agriculture              & 93,856.1 & 3,022,385 &         41 &
@@ -132,12 +133,14 @@ further spectral bands or other data (e.g. synthetic-aperture radar imagery).
 
 Another notable aspect of the Sentinel 2 imagery is the resolution. Ten meters per pixel
 may be enough to distinguish LULC classes as shown by the research project discussed
-above. However, there is the question of whether it is enough to segment urban environments.
-Individual buildings often do not stretch beyond the spatial extent of two pixels, which
-is severely limiting what we can \textit{see} on the image, as illustrated in Figure
-\ref{fig:signatures}. While other data sources may provide better resolution (REFS),
-potentially improving model performance, this research is bound within the
-limits of \textit{open data}, where Sentinel 2 is the best offering to date.
+above. However, there is the question of whether it is enough to segment urban
+environments. Individual buildings often do not stretch beyond the spatial extent of two
+pixels, which is severely limiting what we can \textit{see} on the image, as illustrated
+in Figure \ref{fig:signatures}. While other data sources may provide better
+resolution\footnote{For example, commercial imagery by Maxar reaches a resolution of
+30cm per pixel and imagery by Planet of 50cm per pixel}, potentially improving model
+performance, this research is bound within the limits of \textit{open data}, where
+Sentinel 2 is the best offering to date.
 
 
 \subsection{Methods}
@@ -194,10 +197,10 @@ urban class.
 
 Literature very rarely discusses the decision-making process when defining the chip
 size. In some cases, the size is predetermined due to the requirement of either a
-pre-trained model REF or existing set of labelled data REF. In other, the size that has
+pre-trained model or existing set of labelled data \citep{taubenbock2020}. In other, the size that has
 been used in other studies is simply applied again without discussing the implications
-of such a decision REF. That is surprising as the chip size is a prime example of the
-Openshaw effect (also known as MAUP, REF), especially its scale part, which states that
+of such a decision \citep{wang2018mapping}. That is surprising as the chip size is a prime example of the
+Openshaw effect (also known as MAUP, \citep{openshaw1981modifiable}), especially its scale part, which states that
 a change of the scale may affect the outcome of an experiment. Hence such an effect
 should be at least considered in an interpretation if not intentionally minimized.
 
