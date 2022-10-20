@@ -177,16 +177,18 @@ Each of the steps is further discussed in detail in the subsequent sections.
 % 500 words
 
 The first question that needs to be answered when trying to apply a classification
-algorithm on a contiguous satellite imagery is how to sample such data into individual
-chips that can be assigned to classes. Pre-trained CNNs usually expect a square image of
-a certain size but that does not mean that the same size (in terms of pixels) needs to
+algorithm on satellite imagery that span a large amount of continuous land is how
+to sample such data into individual patches (or, hereafter, chips)
+that can be assigned to classes. Pre-trained CNNs usually expect a square image of
+certain size but that does not mean that the same size (in terms of pixels) needs to
 be directly sampled from the image thanks to possible resampling. What should be
-retained though, is the ratio. Therefore, we need to sample square chips of of a
-relatively custom size. Within image classification problems, we should also assume that
-each chip contains data of a single class only, therefore, such a chip should be fully
-within a boundary of a single signature type. That poses some restrictions as spatial
+retained though, is the ratio. Therefore, we need to sample square chips of
+custom size. Within an image classification framework, we assume that
+each chip contains data of a single class only. Therefore, such a chip should be fully
+within the boundary of a single signature type. That poses some restrictions as spatial
 signatures, especially in urban context, tend to be relatively granular and large chips
-would simply not fit inside the boundaries. The goal is therefore to find a balance
+would simply not fit inside the boundaries, therefore reducing the amount of
+valid chips for training. The goal is therefore to find a balance
 between the number of chips that can be sampled from the data and an amount of
 information each chip can hold. Given the relatively coarse resolution of Sentinel 2, a
 chip of 100x100 meters consists of only 10x10 pixels, which may not be enough to capture
@@ -195,18 +197,21 @@ chip of 1000x1000 meters, that is likely large enough to capture the difference,
 not fit in most of the signature boundaries and we would end with only a few chips per
 urban class.
 
-Literature very rarely discusses the decision-making process when defining the chip
+The literature rarely discusses this decision-making process when defining the chip
 size. In some cases, the size is predetermined due to the requirement of either a
-pre-trained model or existing set of labelled data \citep{taubenbock2020}. In other, the size that has
-been used in other studies is simply applied again without discussing the implications
-of such a decision \citep{wang2018mapping}. That is surprising as the chip size is a prime example of the
-Openshaw effect (also known as MAUP, \citep{openshaw1981modifiable}), especially its scale part, which states that
+pre-trained model or existing set of labelled data \citep{taubenbock2020}. In
+other ones, the size that has
+been used in previous studies is applied again without discussing the implications
+of such a decision \citep{wang2018mapping}. From a spatial analysis
+perspective, this approach is surprising as deciding the chip size is a prime example of the
+modifiable areal unit problem (also known as MAUP,
+\citealp{openshaw1981modifiable}), especially the aspect about scale, which states that
 a change of the scale may affect the outcome of an experiment. Hence such an effect
 should be at least considered in an interpretation if not intentionally minimized.
 
 In this work we try to understand the effect of a chip size by testing all the models
 based on four different chip sizes - 80, 160, 320 and 640 meters representing chips of
-8x8, 16x16, 32x32 and 64x64 pixels, illustrated on a Figure \ref{fig:signatures}.
+8x8, 16x16, 32x32 and 64x64 pixels, respectively, illustrated on a Figure \ref{fig:signatures}.
 
 
 \begin{figure}
@@ -218,25 +223,28 @@ based on four different chip sizes - 80, 160, 320 and 640 meters representing ch
 
 
 
-\subsubsection{Data (spatial) augmentation}
+\subsubsection{(Spatial) data augmentation - \textit{Sliding}}
 
 % Sliding
 
 % 250 words
 
-As mentioned above, certain chip sizes, in combination with the signature geometry and a
-requirement to keep them exclusively within a single class, may result in an
+As mentioned above, certain chip sizes, in combination with the signature
+geometry and the
+requirement to keep them exclusively within a single class may result in an
 insufficient amount of training data for some signature types. Under-sampling like this
-one can be a serious problem, that is not unique to spatial modelling. However, the
-traditional augmentation methods are not entirely applicable here. For example, in an
+one can be a serious problem, that is not unique to spatial modelling. However,
+traditional augmentation methods are not directly applicable here. For example, in an
 image classification problem trying to determine if there is a cat or a dog on an image,
 we can flip the picture along y axis, add some rotation or zoom to get more versions of
 the same image and expand the set of training data. Neither of these methods is
-applicable to the spatial problems. Flipping or rotating the image would break the
+applicable to spatial problems. Flipping or rotating the image would break
 natural light conditions, while zooming in would change the scale of urban environment
-we are attempting to capture. On the other hand, the geographical nature of the problem
-allows us to use spatial augmentation technique we call \textit{sliding}.
+we attempt to capture.
 
+At the same time, the geographical and continuous nature of the data at hand
+allows us to use explicitly spatial augmentation techniques such as the one we
+call \textit{sliding}.
 Sliding can be seen as overlapping sampling. Instead of overlaying a grid of chips over
 target geometry and using each pixel only once, we take the initial grid and slide it a
 few pixels horizontally and vertically as illustrated on a Figure \ref{fig:sliding}. If
@@ -244,8 +252,8 @@ the boundary of a slid chip is fully within a signature geometry, it is added to
 pool of chips to be used. This process is done repeatedly to ensure that each class has
 a reasonable amount of chips to work with.
 
-It is to be noted, that sliding can cause a data leakage (sequences of pixel being
-present in both training and validation sets) if done before splitting the data into
+It is to be noted that sliding can cause a data leakage (sequences of pixels being
+present in both training and validation) if done before splitting the data into
 training and validation subsets. Therefore, we first create the initial grid, subdivide
 it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40\% for
 probability modelling training, 10\% for probability modelling validation) and apply
@@ -266,48 +274,59 @@ sets.
 
 % Overall content of the section
 
-Architecture of each model is composed of two parts. First is the CNN predicting a
-probability that a chip belongs to a class (or a proportion of a chip covered by a
-class). Second is the machine learning modelling, taking the output of the CNN and
-predicting the dominant class. This section describes each of these in detail. It is to
-be noted, that contrary to the majority of deep learning-focused research articles, the
-actual architecture of CNN is not of a particular interest in this paper. It is assumed
-that the effect of geographic decisions will show similar behavior no matter the
-architecture (within some limits). This work therefore uses EfficientNetB4 pre-trained
-on ImageNet dataset. An appendix \ref*{sec:appendixA} shows a brief comparison of
+Model architecture refers to the analytical pipeline that transforms chips
+into a prediction for a single signature type. Our competing architectures
+contain two main parts. First is a CNN that transforms a single chip into a
+set of 12 probabilities, one for each signature type.
+Second is a mathematical function that converts such probabilities (either
+considering only those for the chip of interest, or in conjunction with
+those of neighboring chips) into a
+prediction for a single signature type. This section describes each of these in detail. 
+We would like to highlight that, contrary to the majority of deep
+learning-focused research, our focus is not on the architecture of the CNN
+itself. We assume the effect of geographic choices will largely show similar
+behavior irrespective of the network architecture. For that reason, throughout
+our experiments we use \texttt{EfficientNetB4} \citep{https://doi.org/10.48550/arxiv.1905.11946}, pre-trained
+on the popular ImageNet dataset \citep{deng2009imagenet}. Appendix \ref*{sec:appendixA} shows a brief comparison of
 several standard neural network architectures and their performance on a subset of data
-to illustrate the point. The top layer of the pre-trained model is then replaced by a
+to motivate our decision. We then apply transfer learning by re-training the
+top-layer of the pre-trained model and replacing it by a
 custom sequence of dense layers described below.
 
 % Standard image classification
-
-The default approach is a standard image classification problem, using the sets of chips
-that are fully within a single signature types, both with and without augmentation using
-sliding. The custom top layer of the pre-trained CNN then contains a Global Average
+We consider three variants of the CNN.
+The default approach (which we will refer to \texttt{bic}, for ``baseline
+image classification'') is a standard image classification problem, using the sets of chips
+that are fully within a single signature types. The custom top layer of the pre-trained CNN then contains a Global Average
 Pooling (2D) layer, a dense layer with ReLu activation and 256 neurons, and a dense
 layer with the softmax activation and number of neurons equal to a number of classes
-(12). A result for a single chip is a an array of a length 12 containing probabilities
-that a chip belongs to each class. The sum of all probabilities is 1.
+(12). A result for a single chip is a collection of 12 probabilities
+of a chip belonging to each signature type. The sum of all probabilities is
+one.
+An extension of this approach (\texttt{sic}, for ``sliding image
+classification) applies this technique to the data being spatially augmented
+with the sliding technique described above.
 
 % Multi-output regression
-
-However, there is one more option how to tackle the problem, apart from the image
-classification. When we relax the requirement that every chip must be fully within
-boundaries of a single signature type, we end up with chips encoding proportions of area
-belonging to each class. Instead of a single label per chip, we now deal with an array.
+Our third approach recasts the image classification task as multiclass
+prediction. If we relax the requirement that every chip be fully within
+boundaries of a single signature type, we end up with many more available
+chips but now some of them include more than a single label within their
+extent. Instead of a single label per chip, we now deal with an array of them.
 This can be beneficial from the geographical perspective as such chips now inherently
-encode co-location of individual signature types and a model can use this information
+encode co-location of individual signature types and a model could use this information
 during the prediction. As signature types usually tend to neighbor only a subset of
-other classes (e.g., Urbanity never neighbors Wild Countryside), we can assume that an
-information on co-location can positively impact the resulting performance. For these
-reasons, we include a set of chips sampled from a grid crossing the boundaries of
-signature types (using the same chip sizes as before) and adapt the CNN for the
-multi-output regression problem instead of image classification one. That means that the
-top layer is composed of a Global Average Pooling (2D) layer a dense layer with ReLu
-activation and 256 neurons and a dense layer with the sigmoid activation and a number of
-neurons equal to a number of classes (12). The result for a single chip is a similar
-array but containing predicted proportions. The sum of all proportions can be anything
-within 0 and 12x1.
+other classes (e.g., Urbanity never neighbors Wild Countryside), we can assume that
+information on co-location can positively impact predictive performance. We
+then include a set of chips sampled from a grid crossing the boundaries of
+signature types (using the same chip sizes as before) and adapt the CNN to
+perform multi-output regression (\texttt{mor}) instead of image classification. This change
+implies the top layer is now composed of a Global Average Pooling (2D) layer a
+dense layer with ReLu
+activation and 256 neurons, and a dense layer with the sigmoid activation and a number of
+neurons equal to a number of classes (i.e., 12). The result for a single chip is a similar
+collection of probabilities, but these are now predicted proportions. As such,
+the sum of all of them ranges between 0 and 12, rather than between 0 and 1.
 
 % Spatial modelling of probabilities TODO: Dani, from this section below are your bits.
 
