@@ -381,26 +381,119 @@ competing models:
 \subsubsection{Performance metrics}
 
 % 500 words
-The goal of our experiments is to compare different models under different
+The goal of our experiments is to compare different models under varying
 geographical conditions to learn both which performs best, but also how
 different choices of geographical nature influence the overall performance
 when predicting form and function from satellite imagery.
 To provide a workbench that systematically compares each model and setup, we
-use a set of performance scores that operate at the global and class level,
+use a set of performance scores that operate either at the global or class level,
 and that measure performance in the traditional machine learning sense, as
 well as in the spatial sense.
 
 % Traditional non-spatial
-We use four standard performance scores. The kappa statistic ($\kappa$) XXX.
+We use four standard performance scores. \textit{Cohen's kappa} score ($\kappa$,
+citealp{cohen1960coefficient}) is a measure of agreement between two sets of
+categorical labels that ranges from -1 to 1. Intuitively, it measures the
+extent to which the two sets agree with each other (i.e., same label for the
+same observation), beyond what would be expected from pure chance
+($\kappa=0$). Cases where there is more disagreement than expected from chance
+receive a negative score. \textit{Global (within-class) accuracy} captures the
+proportion of observations correctly predicted (in a given class). The
+\textit{Macro F1} is a score that aggregates class-based F1
+scores. The F1 is the harmonic mean between precission (proportion of
+chips predicted in one class actually belonging to that class) and recall
+(proportion of chips belonging to a given class being predicted as such).
+We use both the \textit{weighted Macro F1} as well as the \textit{averaged
+Macro F1}. The latter takes the standard mean of the F1 scores for each class,
+while the former weights each F1 by the proportion of chips in each class.
 
 % Explicitly spatial metrics % Why % Which ones % Why those? (ideally link to Miguel's
 %paper suggestions)
+In addition to traditional performance scores, we also evaluate how similar
+the spatial pattern of predictions is to that of the original labels.
+The measures described above are all ``spatially unaware'' in the sense that
+they quantify different aspects of the correctness of a model's
+predictions, but ignore their spatial patterning. Two
+sets of results may have the same amount of correct predictions, but in one
+the spatial layout of such predictions may be close to
+that of the observed labels, while the other one spatially allocates mispredictions in
+a way that differs more from what is observed empirically. Given the nature of
+our classification challenge --identify form and
+function over space from satellite imagery-- the spatial dimension of model
+performance is of great importance. Since the spatial signatures represent a
+set of (12) distinct categories, we rely on the \textit{join counts} statistic
+(JC, \citealp{cliff1981spatial}). The JC measures the degree of spatial
+concentration in a binary categorical variable; hence, we use it at the class
+level. For each class in each model, we retain the proportion of pairs of
+chips in the same class that are spatial neighbors (``joins'') over the total number of
+pairs that are spatial neighbors.
+Our neighborhood definition relies on two alternative spatial weights matrices:
+one based on a distance threshold of $1Km$ ($W_{thr}$), and one that combines
+the nearest neighbor with those defined by contiguity ($W_{union}$).
+Our metric of interest is then the error (i.e., absolute
+value of the difference) between this proportion for the model of interest and
+that of the observed labels.
 
 \subsubsection{Summarizing experiments}
 
 % 250 words
 
-% explanation of regression approach
+The setup described above generates over 60 different
+models to be trained to predict 12 signature types, and six performance measures
+to evaluate them. Making sense of their results requires a
+systematic approach that summarises them and provides explicit tests for the
+questions we are trying to answer. We achieve this goal by fitting linear
+regressions that explain performance scores for each model as a function
+of the characteristics of the setup evaluated. Specifically, we estimate the
+following two equations. First, for global scores, we run:
 
-\hl{[DAB to do]}
+\begin{equation}
+        Perf_i = \alpha +
+        \sum_m \delta_m M_i +
+        \sum_a \gamma_a A_i +
+        \beta_1 Chip \; Size_i +
+        \beta_2 W_i +
+        \epsilon_i
+        \label{eq:reg_global}
+\end{equation}
+
+
+where $Perf_i$ is each of our four global performance scores measured for trained
+model in setup $i$; $\alpha$ is an intercept; $M_i$ are indicator variables for the
+type of model we estimate (i.e., \texttt{maxprob}, \texttt{logite},
+\texttt{HGBC});\footnote{We remove \texttt{HGBC} to avoid perfect
+collinearity and hence treat it as the reference model.} $A_i$ are,
+similarly, indicator variables for the architecture used (i.e.,
+\texttt{bic}, \texttt{sic}, \texttt{mor});\footnote{We remove \texttt{BIC} to avoid perfect
+collinearity and hence treat it as the reference model.} $Chip \; Size_i$
+captures the number of pixels the chips in the setup contain; $W_s$ is another
+indicator variable that takes the value of one if the model includes the
+spatial lag of signature type probabilities and zero otherwise;
+and $\epsilon_i \sim \mathcal{N}(0, \sigma)$ is an i.i.d. error term.
+
+Second, for class-based scores, we fit:
+
+\begin{equation}
+        Perf_{i-s} = \alpha +
+        \sum_m \delta_m M_i +
+        \sum_a \gamma_a A_i +
+        \beta_1 Chip \; Size_i +
+        \beta_2 W_i +
+        \beta_3 \left[\%\right]Obs_{i-s} + 
+        \sum_s \zeta_s S_{i-s} + 
+        \epsilon_{i-s}
+        \label{eq:reg_class}
+\end{equation}
+
+where $\left[\%\right]Obs$ represents either the number of chips in
+signature $s$ in setup $i$ or as a proportion of the total; and $S_{i-s}$ an
+indicator variable for the signature type $s$;\footnote{We remove
+\texttt{Accessible suburbia} to avoid perfect collinearity and hence treat it
+as the reference model.} and the rest is as in Equation \ref{eq:reg_global}.
+%
+Importantly for both equations,
+$\delta_m/\gamma_a/\beta_1/\beta_2/\beta_3/\zeta_s$, parameters to be
+estimated by the regression model, provide a direct and formal test to the key
+questions we set out to answer with our experiments.
+
 
