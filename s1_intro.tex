@@ -1,13 +1,66 @@
 \section{Introduction}
-\label{sec:intro}
+\label{sec:intro} % ca. 1500 words
 
-% Keep it conceptual about the point of the paper
+% Urban form and function
+%% Important to understand
+%% Why? Encodes history, conditions the future
+%% Key to understanding is measurement
+%% Rare and incomplete currently, of detailed, scalable and consistent, pick any two
+%% Recent developments are changing this --> spatial signatures
 
-% Include literature review
-% (focused on what is available at the intersection of satellite + AI)
+% The promise of satellites
+%% Detailed measurement is expensive in terms of time, effort, and data requirements
+%% A promising solution is to _supplement_ detailed measurements with satellite imagery
+%% Satellite has radically improved in the last years, and it is set to continue on that technological path
+%% At the same time, the algorithms to process satellite have also seen a revolution in the last ten years (deep learning)
+%% These two trends converge in making possible things with satellite that was unthinkable a few years ago
+%% Such as measuring UFF using and end-to-end open pipeline (data and code)
+%% Open is important because it multiplies the options of what is possible to do with outputs
 
-% Highlight what the key missing bits are when AI is applied to spatial
-% imagery (e.g., scale and context)
+            % Lit. review %
+% Satellites for cities
+%% Mostly through Remote Urban Sensing
+%% The vast majority is as supervised object detection --> include building footprints
+%% And as Land Use and Land Cover --> Include recent examples (ESRI land cover, Google Dynamic World, etc.)
 
-% a lot of the ai and satellite has been supervised object detection
-% there is not a lot of ai for patterns rather than features - in some way it may be easier
+% Satellites for urban form and function
+%% Much less on recognising composite patterns (e.g., UFF) instead of single objects or uses
+%% In some ways, this is more complicated but, in others, maybe not (plus we have much better tools now!)
+%% Much focused on Local Climate Zones
+
+% Deep Learning Architectures
+%% List from MF on examples
+%% https://github.com/urbangrammarai/signature_ai_paper/issues/5
+
+            %%%%%%%%%%%%%%%
+
+% Research gap
+%% Much of the research above is focused on directly deploying standard computer imagery algorithms
+%% The aspect of Geography is largely ignored
+%% What do we mean by "the aspect of Geography"?
+%%% How to treat images that represent geographical locations
+%%% Some key differences with traditional computer vision:
+%%% - images are "arbitrarily" cut from a continuous one --> role of scale
+%%% - images are also thus intrinsically connected to each other through their spatial configuration --> role of context
+%% Ignoring this means we are leaving "value on the table" when analysing satellite imagery
+%% and standard computer vision does not provide off-the-shelf approaches
+
+% This paper
+%% Focus on the geographical aspect to explore its role in identifying UFF from satellites
+%% We use state of the art AI/computer vision, but only as the starting point to explore geography
+%% We set up a set of experiments that allow us to test a series of hypotheses on the role of scale and context
+% Results
+%% Scale and context matter, and these insights can be incorporated to improve predictions
+% The remainder of this paper is structured as follows
+
+%------------------------------------------------------------------------------------
+%X Keep it conceptual about the point of the paper
+
+%X Include literature review
+%X (focused on what is available at the intersection of satellite + AI)
+
+%X Highlight what the key missing bits are when AI is applied to spatial
+%X imagery (e.g., scale and context)
+
+%X a lot of the ai and satellite has been supervised object detection
+%X there is not a lot of ai for patterns rather than features - in some way it may be easier
