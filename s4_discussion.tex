@@ -4,15 +4,57 @@
 % 1 000 words
 
 % Summarize results
+The results can be summarised in four dimensions.
 %% Architecture dimension (BIC, SIC, MOR)
+The first dimension tested is the way chip sampling and a related architecture of used
+CNN. It seems clear that the baseline image classification is limited, and either the
+sliding approach to minimise the disbalance of sample size per class or multi-output
+regression shall be preferred in a use case like signature detection. Of the two,
+multi-output regression even seems to be better, and one of the reasons could be its
+ability to capture co-location. While BIC and SIC-based models have no information on
+the geographical relationship between neighbouring signature types, MOR directly
+captures these as chips often cross multiple signature types. This behaviour is unique
+to geographical problems. Traditional image classification tasks are not able to encode
+\textit{distance} between two types.
 %% Chip size dimension
+The second dimension is chip size. Except for Join Counts statistics, we see a positive
+relationship between model performance and the extent our chips cover. It is an expected
+outcome as the larger the chip is, the more information it contains. However, we cannot
+blindly follow \textit{larger is better} logic as signature types are composed of
+granular geometries, and we see a sampling issue when the chip size grows. While that
+can be partially mitigated by using MOR, it needs to be considered in model
+architecture.
 %% Modelling dimension
+Another dimension looks at the value of modelling on top of probabilities coming from
+neural networks. The results indicate that there is a value of the modelling step as the
+maximum probability option tends to underperform both logit models and histogram-based
+boosted classifiers. While the difference between logit and HGBC is not always
+significant, some results suggest that the non-linear nature of HGBC provides a better
+outcome than linear logit models.
 %% W dimension
+The last dimension focuses on the inclusion of spatial lag in the modelling step as a
+geographically-explicit method of capturing the context of each chip. This has one of
+the most consistent results indicating the models that exclude spatial lag have worse
+performance than those that include it. Yet again, this step would not be possible in a
+traditional image classification context where two samples have no distance from each
+other.
+% What is the best
+Combining all dimensions, we can assume that the optimal model for the detection spatial
+signatures from Sentinel 2 satellite imagery should define CNN for the multi-output
+regression problem based on larger chip size and passing the output to non-linear
+probability modelling with a spatial lag component.
 
-
-% Ability to capture signatures
-%% We can do some nicely, some worse. What is next?
-
+% Ability to capture signatures % We can do some nicely, some worse. What is next?
+That said, we cannot assume that even the best model will perform evenly across all 12
+signature types. The within-class performance metrics indicate that some classes on the
+extreme sides of the urban-rural dimension are easier to detect. That is not surprising
+as both \textit{Urbanity} and \textit{Wild countryside} signature types are unique,
+while a difference between \textit{Dense residential neighbourhoods} and
+\textit{Connected residential neighbourhoods} that are visible on the satellite imagery
+are much more subtle. It is also common that some of the classes are easier to
+distinguish than others \cite{zanaga_daniele_2021_5571936, karra2021global}. However,
+any model deployed for periodical updates of signature classification will have to deal
+with this limitation.
 
 %% What do we take of it in terms of geography
 %%% Reiterate the point on the relevance of geography and how our results
