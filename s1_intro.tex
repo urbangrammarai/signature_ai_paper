@@ -30,7 +30,7 @@ source software, and cheap computing power.
 %% Detailed measurement is expensive in terms of time, effort, and data requirements
 Still, generating detailed, consistent, and scalable classifications of urban
 form and function is an expensive process that is difficult to refresh
-regularly because most of the underlying sources only see updates
+regularly because most of the underlying data sources only see updates
 infrequently.
 
 % The promise of satellites
@@ -54,8 +54,8 @@ One such area is the use of remote sensing and satellite technology to decode
 complex patterns in urban landscapes, such as the spatial signature of
 different types of form and function.
 %% Open is important because it multiplies the options of what is possible to do with outputs
-Just as importantly, most of these developments are being contributed to the
-community under open licenses that allow to further build on them and freely
+Just as importantly, many of these advances are being built atop of
+technology developed under open licenses that allow to further build on them and freely
 redistribute downstream outputs.
 
             % Lit. review %
@@ -69,16 +69,70 @@ yang2021urban}. In fact, the promise of using remote sensing data to decode
 the complexity of urban structure has long been recognised (e.g.,
 \citealp{longley2002geographical}).
 %% The vast majority is as supervised object detection --> include building footprints
+Much of the work in this area has traditionally focused on identification of
+individual geographic features, such as building footprints (e.g.,
+\citealp{microsoft2019}) or trees (e.g., \citealp{ke2011review}). More
+recently, the field has started to pay more attention to the use of
+modern algorithms such as deep learning \citep{lai2021deep}, and attempting to
+map more complex patterns that involve bundles of features rather than a single
+one (e.g., \citealp{kuffer2021mapping}).
 %% And as Land Use and Land Cover --> Include recent examples (ESRI land cover, Google Dynamic World, etc.)
-
-%%%%% Add ch. 8 and 14 %%%%%
+On the adjacent domain of land use and land cover mapping, recent advances
+have shown the potential of using frequently updated, open satellite data in
+combination with modern computer vision to effectively map land cover globally
+in quasi continuous ways
+(e.g., \citealp{karra2021global, brown2022dynamic}; see \citealp{venter2022global} for a 
+detailed comparison of some of the most novel data products in this realm).
 
 % Satellites for urban form and function
 %% Much less on recognising composite patterns (e.g., UFF) instead of single objects or uses
+While most of the efforts in urban remote sensing have focused on the
+identification of individual features or single uses, much less work has been
+directed at decoding patterns that involve several features and/or uses to be
+identified.
 %% In some ways, this is more complicated but, in others, maybe not (plus we have much better tools now!)
-%% Much focused on Local Climate Zones
+In some ways, the jump from the simpler goal of identifying one object or a
+single use to detecting a pattern that involves a particular bundle of them is
+not without its challenges and shortcomings \cite{wang2022knowledge}.
+But, given the performance of modern algorithms, and the increase in
+resolution and quality of even openly available imagery, realising this goal
+is starting to become possible.
+%% Much focused on Local Climate Zones and slums
+There are two areas that have received most of the attention in this context.
+One revolves around the prediction of Local Climate Zones (LCZs,
+\citealp{stewart2012}). LCZs are a set of pre-defined classes of urban
+fabric originally developed for the study of the urban heat island effect. A
+growing body of literature has focused on developing more exhaustive and
+sophisticated models to extract these classes from satellite imagery (e.g.,
+\citealp{koc2017mapping, wang2018mapping, liu2020local, taubenbock2020, zhou2021parcel, zhou2022deep}).
+% Slums
+The second one is focused on one particular type of urban form and function
+that is mostly found in regions which are typically data scarce: informal
+settlements, or urban slums. For the interested reader, \cite{slums2016}
+provides an excellent starting point.
+% A bit of morphometrics
+Although much more in its infancy, a nascent area of interest is growing
+around using imagery to decode urban form (e.g., \citealp{04f9ab8f6c714010ac39b58230f59d85}).
 
 % Deep Learning Architectures
+A common element of the recent advances reviewed above is the use of deep
+convolutional neural networks to perform the task of interest (i.e.,
+classification/segmentation/recognition) from satellite imagery.
+% From scratch
+Some studies, particularly those with sufficient data and computation available, train
+networks from scratch. These involves sometimes building a bespoke
+architecture (e.g., \citealp{othman2017domain}), bespoke data for training (e.g.,
+\citealp{qiu2020fusing, karra2021global}), or both (e.g.,
+\citealp{taubenbock2020, zhu2022urban, sharma2017patch, wang2018multi}).
+% Transfer learning
+Other works however rely on existing architectures like VGG/16
+\citep{simonyan2014very}, UNet \citep{ronneberger2015u}, or ResNet
+\citep{he2016deep}; standardised databases such as ImageNet \citep{ILSVRC15} for
+training; or both (e.g., \citealp{qiu2020fusing,
+karra2021global, srivastava2019understanding}). The former is known as \textit{transfer learning} and
+usually involves re-training of the top layers of the network to customise
+predictions to the specific use case, while retaining unchanged the original
+weights for all the other layers.
 %% List from MF on examples
 %% https://github.com/urbangrammarai/signature_ai_paper/issues/5
 
