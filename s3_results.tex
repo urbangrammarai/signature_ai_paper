@@ -5,12 +5,12 @@
 
 
 % figure 1 - within class accuracy per model
-Within-class accuracy by model can be seen in Figure \ref{fig:wc_accuracy_x_model} (a
+Within-class accuracy by the model can be seen in Figure \ref{fig:wc_accuracy_x_model} (a
 sister figure where scores are grouped by signature rather than by model can be found in
 Appendix \ref{sec:appendixB}). We can notice some consistent patterns already. The
 baseline image classification (\texttt{bic}) tends to underperform other architectures,
-especially on more urban signature types. On the other hand, mutli-output regression (\texttt{mor})
-using the larger chip size (32 or 64) tends to show highest values across signature
+especially on more urban signature types. On the other hand, multi-output regression (\texttt{mor}),
+using the larger chip size (32 or 64), tends to show the highest values across signature
 types and models. If we look at accuracy for individual signature types, both extremes
 (urbanity on one side and both countryside classes on the other)
 tend to be easiest to predict. Regarding models, there is no immediate conclusion to be
@@ -43,11 +43,11 @@ Whilst plotting accuracy is a way to build an intuition about the performance of
 individual options, it does not quantify their effects. The linear regressions shown in
 tables \ref{tab:non_sp_reg} and \ref{tab:non_sp_reg_wc} provide a better insight. The
 first regression explains\ global performance scores (Kappa, Global Accuracy, Marco F1
-weighted and Macro F1 average). We can draw a few conclusions from this. First, there
-seems to be o positive effect of chip size on the results as it is consistently
-significant across all metrics. With the exception of average macro F1 score, there is a
-positive effect of inclusion of spatial lag in the modelling step (W). Regarding neural
-network step, we do not see a lot of significance but there are indications that sliding
+weighted and Macro F1 average). We can draw a few conclusions from this. First, chip size
+seems to be o positive effect on the results, as it is consistently
+significant across all metrics. Except for the average macro F1 score, there is a
+positive effect of the inclusion of spatial lag in the modelling step (W). Regarding the
+CNN step, we do not see a lot of significance but there are indications that sliding
 image classification and multi-output regression approaches outperform baseline image
 classification. Comparing the probability modelling step, we see an indication that the
 maximum probability is the least performant of the options, again suggesting the value
@@ -93,11 +93,11 @@ N.                                                &     60     &           60   
 \end{table}
 
 Table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
-what we have seen in the figure \ref{fig:wc_accuracy_x_model}. We can see that
+what we have seen in figure \ref{fig:wc_accuracy_x_model}. We can see that
 multi-output regression consistently outperforms both baseline image classification and
 sliding image classification (which shows inconsistent results itself). Chip size has,
-again, a positive effect on the performance while the inclusion of spatial
-lag in the modelling is also consistently showing a positive impact. As assumed above, the
+again, a positive effect on the performance, while the inclusion of spatial
+lag in the modelling also consistently shows a positive impact. As assumed above, the
 prediction of signature types on both extremes of the urban-wild range tends to be
 easier than classes in between.
 
@@ -175,17 +175,17 @@ N.                                                &      720    &      720    & 
 % DAB: for space constraints, we have decided to drop it for now
 
 The regression outputs explaining differences in the spatial pattern between observed
-and predicted values, as measured by the Join Counts statistic offer another - spatially
-explicit - perspective on the performance of tested model configurations. As such it
+and predicted values measured by the Join Counts statistic offer another - spatially
+explicit - perspective on the performance of tested model configurations. As such, it
 also indicates slightly different results as presented in a table \ref{tab:sp_reg_wc} .
 Neither option of the probability modelling steps seem to have a significant effect on
-the Join Counts results unlike in previous performance metrics. However, the
-architecture of the neural network step shows significant effect as multi-output
-regression and in two out of four cases also sliding image classification outperform the
+the Join Counts results, unlike in previous performance metrics. However, the
+architecture of the neural network step shows a significant effect as multi-output
+regression, and in two out of four cases also sliding image classification outperform the
 baseline image classification. While the effect of chip size is inconsistent across the
-options, inclusion of spatial lag in the modelling step has significant effect (at
+options, the inclusion of spatial lag in the modelling step has a significant effect (at
 either 10\%, 5\% or 1\% significance level). The effect of a signature type depends on
-the their nature. More compact urban types like \textit{Urbanity} and \textit{Dense
+its nature. More compact urban types like \textit{Urbanity} and \textit{Dense
 urban neighbourhoods} show significance when using a distance threshold spatial weights,
 while sparser signature types like \textit{Open Sprawl} and \textit{Urban Buffer} show
 significance when using a union of weights.
