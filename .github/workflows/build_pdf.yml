@@ -16,7 +16,7 @@ jobs:
           #working_directory: ./
           root_file: |
             signature_ai.tex
-            ijgis_template/interacttfvsample.tex
+            ijgis_template/manuscript.tex
           work_in_root_file_dir: true
       - name: Commit files
         run: |
