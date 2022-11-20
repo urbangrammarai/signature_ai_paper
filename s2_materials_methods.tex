@@ -1,60 +1,58 @@
 \section{Materials and Methods}
 \label{sec:matmet}
 
-In this section we present the materials used in the research - the British spatial
-signatures used as to generate labels for individual chips and Sentinel 2 satellite
+In this section, we present the materials used in the research - the British spatial
+signatures used to generate labels for individual chips and Sentinel 2 satellite
 imagery - and methods designed to unpack the role of geography in image-based deep
 learning.
 
 \subsection{Materials}
 
-The whole research uses only two data inputs, one representing the "ground truth" we are
-aiming to predict using neural networks and the other representing the satellite
-imagery. While the latter does not need a lot of introduction, the British spatial
-signatures used as the labels need to be explained further.
+The research uses only two data inputs, one representing the "ground truth" we aim to predict using neural networks and the other representing satellite
+imagery. While the latter does not need much introduction, the British spatial
+signatures used as labels need to be explained further.
 
 \subsubsection{British Spatial Signatures}
 % 500 words
 
-Spatial signatures are a way of classification of space covering entirety of a case
+Spatial signatures are a way of classification of space covering the entirety of a case
 study area. They are defined as \textit{"a characterisation of space based on form and
-function designed to understand urban environments"} \citep{dab_mf_2021a} and the
+function designed to understand urban environments"} \citep{dab_mf_2021a}, and the
 definition already points at the clear distinction between signatures and traditional
 Land Use / Land Cover (LULC) classifications. Taking the example of CORINE
 \citep{europeanenvironmentagency1990} as a representative of LULC, it has 44 distinct
-classes, out of which 2 cover urban form and other 6 can be loosely related to urban
+classes, out of which 2 cover urban form, and the other 6 can be loosely related to urban
 areas\footnote{Continuous urban fabric, Discontinuous urban fabric; Construction sites,
 Green urban areas, Sport and leisure facilities, Industrial or commercial units, Road
 and rail networks and associated land, Port areas}. A similar situation is with recently
 released global LULC datasets. European Space Agency's WorldCover project distinguishes
-11 classes of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
-Land cover has 9 classes where one is \textit{Built Area} and the rest covers unbuilt
+11 classes, of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
+Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt
 areas \citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not
 very suited for research applications focusing on urban environments. Spatial signatures
-tend to flip this ratio as they are primarily classifying urban space.
+flip this ratio as they are primarily classifying urban space.
 
-There are two key main concepts embedded in spatial signatures delivering urban-focused
+There are two main concepts embedded in spatial signatures delivering urban-focused
 classification. The first one is the spatial unit called the enclosed tessellation cell
-(ETC). To derive ETCs, we first generate \textit{enclosures}, a space fully enclosed by
+(ETC). To derive ETCs, we first generate \textit{enclosures}, spaces fully enclosed by
 a set of barriers (roads, railways, rivers, coastline). ETCs are then a result of
 Voronoi tessellation based on building footprint polygons. The resulting spatial unit
-has adaptive granularity reflecting the scale of each individual urban pattern. The
+has adaptive granularity reflecting the scale of each urban pattern. The
 second is the selection of characters describing each ETC. We measure form and function,
-both primarily urban phenomena and mostly omit environmental aspects focusing on land
+primarily urban phenomena and mostly omit environmental aspects focusing on land
 cover patterns.
 
 % We may want to add a figure explaining ETCs here.
 
-British spatial signatures as presented in \cite{fleischmann2022geographical} are one
+As presented in \cite{fleischmann2022geographical}, British spatial signatures are one
 application of the concept of spatial signatures in
 the context of Great Britain. It divides the space into 16 data-driven classes
 (Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Out of these 16
-classes, nine are entirely urban, four are peripheral and only three are
-classifying natural spaces,
+classes, nine are entirely urban, four are peripheral, and only three classify natural spaces,
 inverting the ratio of built vs unbuilt classes known from LULC. However, out
-of these 16 classes, some are very rare and it would not be feasible to attempt to
-predict them. Therefore, we merge five classes falling under the "urbanity" group into a
-single one and use resulting 12 classes throughout this paper.
+of these 16 classes, some are very rare, and it would not be feasible to attempt to
+predict them. Therefore, we merge five classes under the "urbanity" group into a
+single one and use the resulting 12 classes throughout this paper.
 
 
 \begin{table}
@@ -128,11 +126,11 @@ research uses only RGB bands due to its employment of pre-trained neural network
 stemming from non-satellite imagery that is composed only of RGB. The exclusion of other
 bands may be seen as a limiting factor of the work, but we believe that, as with other
 aspects that will be discussed later, it efficiently illustrates the \textit{lower
-bound} of the performance of presented method and can be only improved with addition of
-further spectral bands or other data (e.g. synthetic-aperture radar imagery).
+bound} of the performance of the presented method and can be only improved with the addition of
+other spectral bands or other data (e.g. synthetic-aperture radar imagery).
 
 Another notable aspect of the Sentinel 2 imagery is the resolution. Ten meters per pixel
-may be enough to distinguish LULC classes as shown by the research project discussed
+may be enough to distinguish LULC classes, as shown by the research project discussed
 above. However, there is the question of whether it is enough to segment urban
 environments. Individual buildings often do not stretch beyond the spatial extent of two
 pixels, which is severely limiting what we can \textit{see} on the image, as illustrated
@@ -148,25 +146,25 @@ Sentinel 2 is the best offering to date.
 % 250 to explain the overarching experiments
 
 We define our challenge as an image classification task and use competing alternatives
-to explore which one performs best. Each of them imply geographically relevant
+to explore which one performs best. Each of them implies geographically relevant
 trade-offs. First, we build and train a model composed of a convolutional neural network
 and probability modelling able to predict the 12 classes derived from the spatial
 signatures. Second, we use methods designed to unveil which of the inherently
-geographical decisions that are being tested has significant effect on the resulting
-performance and should therefore be taken into account when applying CNN on spatial
+geographical decisions being tested has a significant effect on the resulting
+performance and should therefore be considered when applying CNN to spatial
 problems.
 
 Overall, our exercise is structured as a comparison of models that attempt to
 predict the 12 spatial signatures entirely from Sentinel 2 imagery. Each model takes
-a set of chips as input, runs the class prediction using the convolutional neural
+a set of chips as input runs the class prediction using the convolutional neural
 network (CNN) and builds a (spatial) model on top of the resulting probabilities. The
 differences between the models are capturing the geographical options being tested - an
 extent of the area sampled from the satellite imagery into a single \textit{chip},
 presence of spatial augmentation, class exclusivity within each chip, and an
-architecture of probability modelling on top a prediction coming from the CNN.
+architecture of probability modelling on top of a prediction coming from the CNN.
 
-Finally, performance of each model is assessed using both traditional non-spatial
-techniques used in deep learning and bespoke spatial metrics. Given the large number of
+Finally, the performance of each model is assessed using both traditional non-spatial
+techniques used in deep learning and bespoke spatial metrics. Given a large number of
 resulting values, a regression approach is used to determine the effect of the tested
 options.
 
@@ -177,29 +175,29 @@ Each of the steps is further discussed in detail in the subsequent sections.
 % 500 words
 
 The first question that needs to be answered when trying to apply a classification
-algorithm on satellite imagery that span a large amount of continuous land is how
+algorithm on satellite imagery that spans a large amount of continuous land is how
 to sample such data into individual patches (or, hereafter, chips)
 that can be assigned to classes. Pre-trained CNNs usually expect a square image of
-certain size but that does not mean that the same size (in terms of pixels) needs to
-be directly sampled from the image thanks to possible resampling. What should be
-retained though, is the ratio. Therefore, we need to sample square chips of
+a certain size, but that does not mean that the same size (in terms of pixels) needs to
+be directly sampled from the image, thanks to possible resampling. What should be
+retained, though, is the ratio. Therefore, we need to sample square chips of a
 custom size. Within an image classification framework, we assume that
-each chip contains data of a single class only. Therefore, such a chip should be fully
+each chip contains data of a single class only. Therefore, such a chip should be entirely
 within the boundary of a single signature type. That poses some restrictions as spatial
-signatures, especially in urban context, tend to be relatively granular and large chips
-would simply not fit inside the boundaries, therefore reducing the amount of
-valid chips for training. The goal is therefore to find a balance
-between the number of chips that can be sampled from the data and an amount of
+signatures, especially in the urban context, tend to be relatively granular, and large chips
+would not fit inside the boundaries, reducing the number of
+valid chips for training. Therefore, the goal is to find a balance
+between the number of chips sampled from the data and the amount of
 information each chip can hold. Given the relatively coarse resolution of Sentinel 2, a
 chip of 100x100 meters consists of only 10x10 pixels, which may not be enough to capture
 the nature of a signature type and distinguish it from other types. On the other hand, a
-chip of 1000x1000 meters, that is likely large enough to capture the difference, will
+chip of 1000x1000 meters, which is likely large enough to capture the difference, will
 not fit in most of the signature boundaries and we would end with only a few chips per
 urban class.
 
 The literature rarely discusses this decision-making process when defining the chip
 size. In some cases, the size is predetermined due to the requirement of either a
-pre-trained model or existing set of labelled data \citep{taubenbock2020}. In
+pre-trained model or an existing set of labelled data \citep{taubenbock2020}. In
 other ones, the size that has
 been used in previous studies is applied again without discussing the implications
 of such a decision \citep{wang2018mapping}. From a spatial analysis
@@ -209,7 +207,7 @@ modifiable areal unit problem (also known as MAUP,
 a change of the scale may affect the outcome of an experiment. Hence such an effect
 should be at least considered in an interpretation if not intentionally minimized.
 
-In this work we try to understand the effect of a chip size by testing all the models
+In this work, we try to understand the effect of a chip size by testing all the models
 based on four different chip sizes - 80, 160, 320 and 640 meters representing chips of
 8x8, 16x16, 32x32 and 64x64 pixels, respectively, illustrated on a Figure \ref{fig:signatures}.
 
@@ -229,17 +227,17 @@ based on four different chip sizes - 80, 160, 320 and 640 meters representing ch
 
 % 250 words
 
-As mentioned above, certain chip sizes, in combination with the signature
+As mentioned above, in combination with the signature
 geometry and the
-requirement to keep them exclusively within a single class may result in an
-insufficient amount of training data for some signature types. Under-sampling like this
-one can be a serious problem, that is not unique to spatial modelling. However,
+the requirement to keep them exclusively within a single class, specific chip sizes may result in
+insufficient training data for some signature types. Under-sampling like this
+one can be a serious problem that is not unique to spatial modelling. However,
 traditional augmentation methods are not directly applicable here. For example, in an
 image classification problem trying to determine if there is a cat or a dog on an image,
-we can flip the picture along y axis, add some rotation or zoom to get more versions of
+we can flip the picture along the y-axis, add some rotation or zoom to get more versions of
 the same image and expand the set of training data. Neither of these methods is
 applicable to spatial problems. Flipping or rotating the image would break
-natural light conditions, while zooming in would change the scale of urban environment
+natural light conditions, while zooming in would change the scale of the urban environment
 we attempt to capture.
 
 At the same time, the geographical and continuous nature of the data at hand
@@ -247,7 +245,7 @@ allows us to use explicitly spatial augmentation techniques such as the one we
 call \textit{sliding}.
 Sliding can be seen as overlapping sampling. Instead of overlaying a grid of chips over
 target geometry and using each pixel only once, we take the initial grid and slide it a
-few pixels horizontally and vertically as illustrated on a Figure \ref{fig:sliding}. If
+few pixels horizontally and vertically, as illustrated in Figure \ref{fig:sliding}. If
 the boundary of a slid chip is fully within a signature geometry, it is added to the
 pool of chips to be used. This process is done repeatedly to ensure that each class has
 a reasonable amount of chips to work with.
@@ -258,7 +256,8 @@ training and validation subsets. Therefore, we first create the initial grid, su
 it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40\% for
 probability modelling training, 10\% for probability modelling validation) and apply
 sliding within each part to avoid any pixels being shared among chips from different
-sets.
+sets. Subdivision into the four parts is done within each signature geometry to avoid
+potential geographical bias.
 
 \begin{figure}
     \centering
@@ -278,61 +277,61 @@ Model architecture refers to the analytical pipeline that transforms chips
 into a prediction for a single signature type. Our competing architectures
 contain two main parts. First is a CNN that transforms a single chip into a
 set of 12 probabilities, one for each signature type.
-Second is a mathematical function that converts such probabilities (either
-considering only those for the chip of interest, or in conjunction with
-those of neighboring chips) into a
-prediction for a single signature type. This section describes each of these in detail. 
+Second is a mathematical function that converts such probabilities (
+considering only those for the chip of interest or in conjunction with
+those of neighbouring chips) into a
+prediction for a single signature type. This section describes each of these in detail.
 We would like to highlight that, contrary to the majority of deep
 learning-focused research, our focus is not on the architecture of the CNN
 itself. We assume the effect of geographic choices will largely show similar
-behavior irrespective of the network architecture. For that reason, throughout
+behaviour irrespective of the network architecture. For that reason, throughout
 our experiments we use \texttt{EfficientNetB4} \citep{https://doi.org/10.48550/arxiv.1905.11946}, pre-trained
 on the popular ImageNet dataset \citep{deng2009imagenet}. Appendix \ref*{sec:appendixA} shows a brief comparison of
 several standard neural network architectures and their performance on a subset of data
 to motivate our decision. We then apply transfer learning by re-training the
-top-layer of the pre-trained model and replacing it by a
+top layer of the pre-trained model and replacing it by a
 custom sequence of dense layers described below.
 
 % Standard image classification
 We consider three variants of the CNN.
 The default approach (which we will refer to \texttt{bic}, for ``baseline
 image classification'') is a standard image classification problem, using the sets of chips
-that are fully within a single signature types. The custom top layer of the pre-trained CNN then contains a Global Average
+that are fully within a single signature type. The custom top layer of the pre-trained CNN then contains a Global Average
 Pooling (2D) layer, a dense layer with ReLu activation and 256 neurons, and a dense
-layer with the softmax activation and number of neurons equal to a number of classes
+layer with the softmax activation and a number of neurons equal to a number of classes
 (12). A result for a single chip is a collection of 12 probabilities
 of a chip belonging to each signature type. The sum of all probabilities is
 one.
 An extension of this approach (\texttt{sic}, for ``sliding image
-classification) applies this technique to the data being spatially augmented
+classification'') applies this technique to the data being spatially augmented
 with the sliding technique described above.
 
 % Multi-output regression
-Our third approach recasts the image classification task as multiclass
-prediction. If we relax the requirement that every chip be fully within
-boundaries of a single signature type, we end up with many more available
-chips but now some of them include more than a single label within their
-extent. Instead of a single label per chip, we now deal with an array of them.
+Our third approach recasts the image classification task as a multiclass
+prediction. If we relax the requirement that every chip is fully within
+the boundaries of a single signature type, we end up with many more available
+chips, but now some of them include more than a single label within their
+extent. Instead of a single label per chip, we now deal with a 1-D array of them.
 This can be beneficial from the geographical perspective as such chips now inherently
-encode co-location of individual signature types and a model could use this information
-during the prediction. As signature types usually tend to neighbor only a subset of
-other classes (e.g., Urbanity never neighbors Wild Countryside), we can assume that
+encode the co-location of individual signature types and a model could use this information
+during the prediction. As signature types usually tend to neighbour only a subset of
+other classes (e.g., Urbanity never neighbours Wild Countryside), we can assume that
 information on co-location can positively impact predictive performance. We
 then include a set of chips sampled from a grid crossing the boundaries of
 signature types (using the same chip sizes as before) and adapt the CNN to
 perform multi-output regression (\texttt{mor}) instead of image classification. This change
-implies the top layer is now composed of a Global Average Pooling (2D) layer a
+implies the top layer is now composed of a Global Average Pooling (2D) layer, a
 dense layer with ReLu
 activation and 256 neurons, and a dense layer with the sigmoid activation and a number of
 neurons equal to a number of classes (i.e., 12). The result for a single chip is a similar
 collection of probabilities, but these are now predicted proportions. As such,
-the sum of all of them ranges between 0 and 12, rather than between 0 and 1.
+the sum of all of them ranges between 0 and 12 rather than between 0 and 1.
 
 % Spatial modelling of probabilities TODO: Dani, from this section below are your bits.
 The second step in the pipeline takes chip probabilities and turns them into
 predictions of a signature type. To do this, we compare five approaches of
 differing complexity and sophistication. These five variants stem from the
-combination two components: the set of inputs used to make the prediction, and
+combination of two components: the set of inputs used to make the prediction and
 the function transforming them into a single signature type. For a given chip
 $i$, we can express this step of the pipeline mathematically as follows:
 
@@ -357,14 +356,14 @@ and $P$. On the latter, we compare models that only use the probabilities
 $P_{k-i}$ generated by the CNN for chip $i$ (\texttt{baseline}) with alternatives
 (signalled with the \texttt{wx} term) that, in addition,
 also include an average of $P_{k-j}$ probabilities, which are the
-probabilities generated by the CNN for each neighbor $j$ of chip $i$. This is
+probabilities generated by the CNN for each neighbour $j$ of chip $i$. This is
 akin to what in spatial analysis is called the \textit{spatial lag} of each
 probability, and is calculated using a spatial weights matrix $W$ that records
 the spatial relationship between every chip in the set. In our $W$, two
 neighboring locations $i$ and $j$ will receive a weight $w_{ij}=1$,
 if they are in the same of the four split sets as defined above, and if they
-either are geographically contiguous or are nearest neighbors; while otherwise
-they will be consider non-neighbors and receive a weight $w_{ij}=0$. To obtain
+either are geographically contiguous or are nearest neighbours; while otherwise
+they will be considered non-neighbours and receive a weight $w_{ij}=0$. To obtain
 an average of the neighbors, we row-standardise $W$ so that $\sum_j w_{ij} =
 1$. The second dimension other than $P$ we vary is the function $f(\cdot)$ that converts
 it to the prediction $S_i$. We take three distinct approaches here: simply
@@ -392,15 +391,15 @@ well as in the spatial sense.
 
 % Traditional non-spatial
 We use four standard performance scores. \textit{Cohen's kappa} score ($\kappa$,
-citealp{cohen1960coefficient}) is a measure of agreement between two sets of
+\citealp{cohen1960coefficient}) is a measure of agreement between two sets of
 categorical labels that ranges from -1 to 1. Intuitively, it measures the
 extent to which the two sets agree with each other (i.e., same label for the
-same observation), beyond what would be expected from pure chance
+same observation) beyond what would be expected from pure chance
 ($\kappa=0$). Cases where there is more disagreement than expected from chance
 receive a negative score. \textit{Global (within-class) accuracy} captures the
 proportion of observations correctly predicted (in a given class). The
 \textit{Macro F1} is a score that aggregates class-based F1
-scores. The F1 is the harmonic mean between precission (proportion of
+scores. The F1 is the harmonic mean between precision (proportion of
 chips predicted in one class actually belonging to that class) and recall
 (proportion of chips belonging to a given class being predicted as such).
 We use both the \textit{weighted Macro F1} as well as the \textit{averaged
@@ -413,8 +412,8 @@ In addition to traditional performance scores, we also evaluate how similar
 the spatial pattern of predictions is to that of the original labels.
 The measures described above are all ``spatially unaware'' in the sense that
 they quantify different aspects of the correctness of a model's
-predictions, but ignore their spatial patterning. Two
-sets of results may have the same amount of correct predictions, but in one
+predictions but ignore their spatial patterning. Two
+sets of results may have the same amount of correct predictions, but in one,
 the spatial layout of such predictions may be close to
 that of the observed labels, while the other one spatially allocates mispredictions in
 a way that differs more from what is observed empirically. Given the nature of
@@ -425,11 +424,11 @@ set of (12) distinct categories, we rely on the \textit{join counts} statistic
 (JC, \citealp{cliff1981spatial}). The JC measures the degree of spatial
 concentration in a binary categorical variable; hence, we use it at the class
 level. For each class in each model, we retain the proportion of pairs of
-chips in the same class that are spatial neighbors (``joins'') over the total number of
-pairs that are spatial neighbors.
-Our neighborhood definition relies on two alternative spatial weights matrices:
+chips in the same class that are spatial neighbours (``joins'') over the total number of
+pairs that are spatial neighbours.
+Our neighbourhood definition relies on two alternative spatial weights matrices:
 one based on a distance threshold of $1Km$ ($W_{thr}$), and one that combines
-the nearest neighbor with those defined by contiguity ($W_{union}$).
+the nearest neighbour with those defined by contiguity ($W_{union}$).
 Our metric of interest is then the error (i.e., absolute
 value of the difference) between this proportion for the model of interest and
 that of the observed labels.
@@ -439,7 +438,7 @@ that of the observed labels.
 % 250 words
 
 The setup described above generates over 60 different
-models to be trained to predict 12 signature types, and six performance measures
+models to be trained to predict 12 signature types and six performance measures
 to evaluate them. Making sense of their results requires a
 systematic approach that summarises them and provides explicit tests for the
 questions we are trying to answer. We achieve this goal by fitting linear
@@ -479,8 +478,8 @@ Second, for class-based scores, we fit:
         \sum_a \gamma_a A_i +
         \beta_1 Chip \; Size_i +
         \beta_2 W_i +
-        \beta_3 \left[\%\right]Obs_{i-s} + 
-        \sum_s \zeta_s S_{i-s} + 
+        \beta_3 \left[\%\right]Obs_{i-s} +
+        \sum_s \zeta_s S_{i-s} +
         \epsilon_{i-s}
         \label{eq:reg_class}
 \end{equation}

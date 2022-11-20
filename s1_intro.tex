@@ -1,13 +1,207 @@
 \section{Introduction}
-\label{sec:intro}
+\label{sec:intro} % ca. 1500 words
 
-% Keep it conceptual about the point of the paper
+% Urban form and function
+%% Important to understand
+The way in which different urban functions are arranged within space, and the forms these
+give rise to, are important to understand how cities work, how they
+interact with the human and environmental systems that create them, and how
+policy can effectively intervene.
+%% Why? Encodes history, conditions the future
+Urban form and function matter, at least, for two reasons \citep{dab_mf_2021a}:
+first because cities use both to encode their history; and second because,
+once in place, the physical layout of functions within a city condition how it
+can and will develop in the future.
+%% Key to understanding is measurement
+A key requirement to understand form and function in cities is adequate
+measurement, which implies detailed, consistent, and scalable
+characterisations that can be updated frequently over time. These
+characteristics then allow not only to observe detail, but to see it unfold
+both over space and time. 
+%% Rare and incomplete currently, of detailed, scalable and consistent, pick any two
+There is a large literature measuring these phenomena, and it is relatively
+common to find any two of those characteristics (i.e., detailed and consistent,
+consistent and scalable, and detailed and scalable) present in a given piece
+of work.
+%% Recent developments are changing this --> spatial signatures
+Research bringing the three together is still rare, although some is
+emerging (e.g., \citealp{fleischmann2022geographical}) thanks to the confluence of better data, open
+source software, and cheap computing power.
+%% Detailed measurement is expensive in terms of time, effort, and data requirements
+Still, generating detailed, consistent, and scalable classifications of urban
+form and function is an expensive process that is difficult to refresh
+regularly because most of the underlying data sources only see updates
+infrequently.
 
-% Include literature review
-% (focused on what is available at the intersection of satellite + AI)
+% The promise of satellites
+%% A promising solution is to _supplement_ detailed measurements with satellite imagery
+A promising option to improve the frequency of these classifications is
+satellite imagery.
+%% Satellite has radically improved in the last years, and it is set to continue on that technological path
+Satellite technology has radically increased and improved the amount of
+imagery available on the Earth, and shows no signs of slowing down.
+%% At the same time, the algorithms to process satellite have also seen a revolution in the last ten years (deep learning)
+More and better imagery has been complemented with the rise of new computer
+vision algorithms, such as deep learning \citep{lecun2015},
+that allow to extract more value from the same amount of data; and the
+availability of computing power that makes it possible to deploy them cheaply
+without the steep learning curve required only a few years ago.
+%% These two trends converge in making possible things with satellite that was unthinkable a few years ago
+The convergence of these two trends in remote sensing is unlocking
+achievements that even very recently seemed beyond the realm of possibility.
+%% Such as measuring UFF using and end-to-end open pipeline (data and code)
+One such area is the use of remote sensing and satellite technology to decode
+complex patterns in urban landscapes, such as the spatial signature of
+different types of form and function.
+%% Open is important because it multiplies the options of what is possible to do with outputs
+Just as importantly, many of these advances are being built atop
+technology developed under open licenses that allow to further build on them, freely
+redistributing downstream outputs.
 
-% Highlight what the key missing bits are when AI is applied to spatial
-% imagery (e.g., scale and context)
+            % Lit. review %
+% Satellites for cities
+The use of satellite technology for measuring different aspects of urban
+environments is by no means new.
+%% Mostly through Remote Urban Sensing
+Much of the present work falls within the
+broad category of urban remote sensing \citep{rashed2010remote, weng2018urban,
+yang2021urban}. In fact, the promise of using remote sensing data to decode
+the complexity of urban structure has long been recognised (e.g.,
+\citealp{longley2002geographical}).
+%% The vast majority is as supervised object detection --> include building footprints
+Much of the work in this area has traditionally focused on identification of
+individual geographic features, such as building footprints (e.g.,
+\citealp{microsoft2019}) or trees (e.g., \citealp{ke2011review}). More
+recently, the field has started to pay increasing attention to the use of
+modern algorithms such as deep learning \citep{lai2021deep}, and attempting to
+map more complex patterns that involve bundles of features rather than a single
+one (e.g., \citealp{kuffer2021mapping}).
+%% And as Land Use and Land Cover --> Include recent examples (ESRI land cover, Google Dynamic World, etc.)
+On the adjacent domain of land use and land cover mapping, recent advances
+have shown the potential of using frequently updated, open satellite data in
+combination with modern computer vision to effectively map land cover globally
+in quasi continuous ways
+(e.g., \citealp{karra2021global, brown2022dynamic}; see \citealp{venter2022global} for a 
+detailed comparison of some of the most novel data products in this realm).
 
-% a lot of the ai and satellite has been supervised object detection
-% there is not a lot of ai for patterns rather than features - in some way it may be easier
+% Satellites for urban form and function
+%% Much less on recognising composite patterns (e.g., UFF) instead of single objects or uses
+While most of the efforts in urban remote sensing have focused on the
+identification of individual features or single uses, much less work has been
+directed at decoding patterns that involve several features and/or uses to be
+identified.
+%% In some ways, this is more complicated but, in others, maybe not (plus we have much better tools now!)
+In some ways, the jump from the simpler goal of identifying one object or a
+single use to detecting a pattern that involves a particular bundle of them is
+not without its challenges and shortcomings \citep{wang2022knowledge}.
+But, given the performance of modern algorithms, and the increase in
+resolution and quality of even openly available imagery, realising this goal
+is starting to become possible.
+%% Much focused on Local Climate Zones and slums
+There are two areas that have received most of the attention in this context.
+One revolves around the prediction of Local Climate Zones (LCZs,
+\citealp{stewart2012}). LCZs are a set of pre-defined classes of urban
+fabric originally developed for the study of the urban heat island effect. A
+growing body of literature has focused on developing more exhaustive and
+sophisticated models to extract these classes from satellite imagery (e.g.,
+\citealp{koc2017mapping, wang2018mapping, liu2020local, taubenbock2020, zhou2021parcel, zhou2022deep}).
+% Slums
+The second one is focused on one particular type of urban form and function
+that is mostly found in regions which are typically data scarce: informal
+settlements, or urban slums. For the interested reader, \cite{slums2016}
+provides an excellent starting point.
+% A bit of morphometrics
+Although much more in its infancy, a nascent area of interest is growing
+around using imagery to decode urban form (e.g., \citealp{04f9ab8f6c714010ac39b58230f59d85}).
+
+% Deep Learning Architectures
+A common element of the recent advances reviewed above is the use of deep
+convolutional neural networks to perform the task of interest (i.e.,
+classification/segmentation/recognition) from satellite imagery.
+% From scratch
+Some studies, particularly those with sufficient data and computation available, train
+networks from scratch. These involves sometimes building a bespoke
+architecture (e.g., \citealp{othman2017domain}), bespoke data for training (e.g.,
+\citealp{qiu2020fusing, karra2021global}), or both (e.g.,
+\citealp{taubenbock2020, zhu2022urban, sharma2017patch, wang2018multi}).
+% Transfer learning
+Other works however rely on existing architectures like VGG/16
+\citep{simonyan2014very}, UNet \citep{ronneberger2015u}, or ResNet
+\citep{he2016deep}; standardised databases such as ImageNet \citep{ILSVRC15} for
+training; or both (e.g., \citealp{qiu2020fusing,
+karra2021global, srivastava2019understanding}). The former is known as \textit{transfer learning} and
+usually involves re-training of the top layers of the network to customise
+predictions to the specific use case, while retaining unchanged the original
+weights for all the other layers.
+%% List from MF on examples
+%% https://github.com/urbangrammarai/signature_ai_paper/issues/5
+
+            %%%%%%%%%%%%%%%
+
+% Research gap
+While deep learning has been recently introduced in the analysis of urban satellite
+imagery, its application has so far mostly ignored the geographical nature of
+the images being fed to these algorithms. This is not entirely unreasonable.
+Much of the state of the art in deep learning and computer vision was
+developed in the last decade with ``aspatial imagery'' in mind, in particular consumer
+photographs uploaded and shared through the internet (e.g., featuring cats and
+dogs). As such, many of the assumptions (e.g., unrelated images), tricks
+(e.g., data augmentation techniques), and limitations (e.g., shape of the
+input data) these models
+feature are intimately related to data of this kind. The application of deep
+learning to satellite imagery is in what we consider a first phase in which
+cutting edge computer vision has been deployed to images that, rather than
+animals or people, represent locations on Earth observed from above. Because
+of the overall impressive performance of modern algorithms, the results are
+impressive, even with largely unmodified models. However, this does not imply
+there is not further margin for improvement.
+
+This paper advances our understanding of how deep learning can be applied to
+satellite imagery by focusing on aspects linked to the geographical nature of the
+data rather than on the computational architecture of the algorithms.
+Specifically, our contribution is twofold. First, we argue (and demonstrate)
+there is value in considering the explicitly geographical nature of satellite
+imagery when applying deep learning algorithms in this context.
+In particular, we focus on the role of scale and context, two often overlooked
+aspects in studies of this kind.
+%
+Second, we also show deep learning can be a powerful tool to not only predict
+complex patterns of urban form and function in satellite images, but also to
+better understand them, uncovering some of their key characteristics and
+processes.
+%
+The remainder of the paper is structured as follows:
+Section \ref{sec:matmet} describes the data we use as well as the
+methodological strategy we follow;
+Section \ref{sec:results} presents the key results from our experiments;
+and Section \ref{sec:discussion} discusses their relevance and concludes.
+
+%% Much of the research above is focused on directly deploying standard computer imagery algorithms
+%% The aspect of Geography is largely ignored
+%% What do we mean by "the aspect of Geography"?
+%%% How to treat images that represent geographical locations
+%%% Some key differences with traditional computer vision:
+%%% - images are "arbitrarily" cut from a continuous one --> role of scale
+%%% - images are also thus intrinsically connected to each other through their spatial configuration --> role of context
+%% Ignoring this means we are leaving "value on the table" when analysing satellite imagery
+%% and standard computer vision does not provide off-the-shelf approaches
+
+% This paper
+%% Focus on the geographical aspect to explore its role in identifying UFF from satellites
+%% We use state of the art AI/computer vision, but only as the starting point to explore geography
+%% We set up a set of experiments that allow us to test a series of hypotheses on the role of scale and context
+% Results
+%% Scale and context matter, and these insights can be incorporated to improve predictions
+% The remainder of this paper is structured as follows
+
+%------------------------------------------------------------------------------------
+%X Keep it conceptual about the point of the paper
+
+%X Include literature review
+%X (focused on what is available at the intersection of satellite + AI)
+
+%X Highlight what the key missing bits are when AI is applied to spatial
+%X imagery (e.g., scale and context)
+
+%X a lot of the ai and satellite has been supervised object detection
+%X there is not a lot of ai for patterns rather than features - in some way it may be easier
