@@ -13,7 +13,7 @@ especially on more urban signature types. On the other hand, multi-output regres
 using the larger chip size (32 or 64), tends to show the highest values across signature
 types and models. If we look at accuracy for individual signature types, both extremes
 (urbanity on one side and both countryside classes on the other)
-tend to be easiest to predict. Regarding models, there is no immediate conclusion to be
+tend to be the easiest to predict. Regarding the models, there is no immediate conclusion to be
 made apart from a clear indication that the maximum probability (\texttt{maxprob}) approach is generally
 worse than any of the modelling, suggesting that there is a value in the modelling step.
 The within-class accuracy can be further explored using confusion matrices available as an
@@ -39,12 +39,12 @@ Appendix \ref*{sec:appendixC}.
     \label{fig:wc_accuracy_x_model}
 \end{figure}
 
-Whilst plotting accuracy is a way to build an intuition about the performance of
+Whilst plotting the accuracy is a way to build an intuition about the performance of
 individual options, it does not quantify their effects. The linear regressions shown in
 tables \ref{tab:non_sp_reg} and \ref{tab:non_sp_reg_wc} provide a better insight. The
-first regression explains\ global performance scores (Kappa, Global Accuracy, Marco F1
-weighted and Macro F1 average). We can draw a few conclusions from this. First, chip size
-seems to be o positive effect on the results, as it is consistently
+first regression explains global performance scores (Cohen's kappa, Global Accuracy, Marco F1
+weighted and Macro F1 average). We can draw a few conclusions from this. First, the chip size
+seems to have a positive effect on the results, as it is consistently
 significant across all metrics. Except for the average macro F1 score, there is a
 positive effect of the inclusion of spatial lag in the modelling step (W). Regarding the
 CNN step, we do not see a lot of significance but there are indications that sliding
@@ -92,8 +92,8 @@ N.                                                &     60     &           60   
     the 1\%, 5\%, 10\% level are noted with ***, **, and *, respectively.}
 \end{table}
 
-Table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
-what we have seen in figure \ref{fig:wc_accuracy_x_model}. We can see that
+The table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
+what we have seen in figure \ref{fig:wc_accuracy_x_model}. The
 multi-output regression consistently outperforms both baseline image classification and
 sliding image classification (which shows inconsistent results itself). Chip size has,
 again, a positive effect on the performance, while the inclusion of spatial
@@ -177,13 +177,13 @@ N.                                                &      720    &      720    & 
 The regression outputs explaining differences in the spatial pattern between observed
 and predicted values measured by the Join Counts statistic offer another - spatially
 explicit - perspective on the performance of tested model configurations. As such, it
-also indicates slightly different results as presented in a table \ref{tab:sp_reg_wc} .
+also indicates slightly different results as presented in the table \ref{tab:sp_reg_wc}.
 Neither option of the probability modelling steps seem to have a significant effect on
 the Join Counts results, unlike in previous performance metrics. However, the
 architecture of the neural network step shows a significant effect as multi-output
-regression, and in two out of four cases also sliding image classification outperform the
-baseline image classification. While the effect of chip size is inconsistent across the
-options, the inclusion of spatial lag in the modelling step has a significant effect (at
+regression, and in two out of four cases also sliding image classification, outperform the
+baseline image classification. While the effect of the chip size is inconsistent across the
+options, the inclusion of the spatial lag in the modelling step has a significant effect (at
 either 10\%, 5\% or 1\% significance level). The effect of a signature type depends on
 its nature. More compact urban types like \textit{Urbanity} and \textit{Dense
 urban neighbourhoods} show significance when using a distance threshold spatial weights,

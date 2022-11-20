@@ -4,18 +4,19 @@
 % Summarise results
 The results can be summarised in four dimensions.
 %% Architecture dimension (BIC, SIC, MOR)
-The first dimension tested is the way chip sampling and a related architecture of used
-CNN. It seems clear that the baseline image classification is limited, and either the
+The first dimension tested is the way of chip sampling and a related CNN architecture.
+It seems clear that the baseline image classification is limited, and either the
 sliding approach to minimise the disbalance of sample size per class or multi-output
 regression shall be preferred in a use case like signature detection. Of the two,
 multi-output regression even seems to be better, and one of the reasons could be its
-ability to capture co-location. While BIC and SIC-based models have no information on
+ability to implicitly capture co-location. While BIC and SIC-based models have no
+information on
 the geographical relationship between neighbouring signature types, MOR directly
 captures these as chips often cross multiple signature types. This behaviour is unique
-to geographical problems. Traditional image classification tasks are not able to encode
-\textit{distance} between two types.
+to geographical problems. Aspatial image classification tasks are not able to encode
+\textit{distance} between two types in this way.
 %% Chip size dimension
-The second dimension is chip size. Except for Join Counts statistics, we see a positive
+The second dimension is a chip size. Except for Join Counts statistics, we see a positive
 relationship between model performance and the extent to our chips cover. It is an expected
 outcome as the larger the chip is, the more information it contains. However, we cannot
 blindly follow \textit{larger is better} logic as signature types are composed of
@@ -25,19 +26,20 @@ architecture.
 %% Modelling dimension
 Another dimension looks at the value of modelling on top of probabilities coming from
 neural networks. The results indicate that there is a value of the modelling step as the
-maximum probability option tends to underperform both logit models and histogram-based
+maximum probability option, used as a default if no modelling is employed, tends to
+underperform both logit models and histogram-based
 boosted classifiers. While the difference between logit and HGBC is not always
 significant, some results suggest that the non-linear nature of HGBC provides a better
 outcome than linear logit models.
 %% W dimension
-The last dimension focuses on the inclusion of spatial lag in the modelling step as a
+The last dimension focuses on the inclusion of the spatial lag in the modelling step as a
 geographically-explicit method of capturing the context of each chip. This has one of
-the most consistent results indicating the models that exclude spatial lag have worse
-performance than those that include it. Yet again, this step would not be possible in a
-traditional image classification context where two samples have no distance from each
-other.
+the most consistent effects on performance indicating the models that exclude spatial lag have worse
+results than those that include it. Yet again, this step would not be possible in an
+aspatial image classification context where two samples have no ``spatial'' distance from each
+other hence no spatial weights matrix can be created.
 % What is the best
-Combining all dimensions, we can assume that the optimal model for the detection of spatial
+Combining all the dimensions, we can assume that the optimal model for the detection of spatial
 signatures from Sentinel 2 satellite imagery should define CNN for the multi-output
 regression problem based on larger chip size and passing the output to non-linear
 probability modelling with a spatial lag component.
@@ -61,13 +63,13 @@ with this limitation.
 The experiments presented in this article focus on specific target data represented by
 spatial signatures. Because the signatures are designed to capture the structure of urban
 environments, the behaviour of spatial components in the modelling pipeline may differ
-when target data of a different nature are used. However, we would argue that the
+when target data are of a different nature. However, we argue that the
 principle still holds in most cases as the uniqueness of satellite data in the image
 classification is undeniable and will always offer specific solutions not generally
-available when the task is to distinguish a cat from a dog.
+available when the task is aspatial.
 
-Since the article was restricted to the use of open data at every step, the best
-resolution of satellite imagery was 10 meters per pixel offered by the Sentinel 2
+Since this article is restricted to the use of open data at every step, the best
+resolution of satellite imagery is 10 meters per pixel offered by the Sentinel 2
 mission. That poses some challenges because such a resolution limits the amount of
 information we can capture on a small area and may oversimplify urban environments that
 are naturally more granular in their patterns than what 10mpp can capture. Further
@@ -81,18 +83,18 @@ problem, where no pixels are shared among chips and all chips need to be exclusi
 single signature type. The issue is alleviated by class weights in the neural network
 architecture, but such a solution is not optimal.
 
-When selecting the architecture of neural networks, we have intentionally excluded image
+When selecting the CNN architecture, we have intentionally excluded image
 segmentation. While it seems like an ideal candidate for the task at hand, there are
-several reasons it was excluded. The first has to do with the spatial signatures and the
+several reasons for its exlusion. The first has to do with the spatial signatures and the
 nature of the boundaries between individual types. While the dataset from
 \cite{fleischmann2022geographical} delineates them with hard boundaries when one cell
 is a type A and the neighbouring one a type B, the reality is not that simple, and these
-boundaries should be treated more as a fuzzy boundary. There is very rarely a hard
+boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
 switch between one type of urban environment and the other one. In many cities, two
 types tend to form a transition on the edges where neither is dominant. A situation like
-this is very challenging for image segmentation. The second reason is that image
+this is very challenging for the image segmentation as it often looks at delineation of water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
 segmentation, having a prediction for individual pixels, would not allow us to use the
-second part of the method and test the effect of spatial lag in modelling. The only
+second part of the method and test the effect of spatial lag in modelling efficiently. The only
 way of doing that would be to run the experiment on a pixel level which would be
 extremely computationally expensive, hence challenging to reproduce. We believe that the
 method that can be run on a local machine is in the end, more valuable than the one
@@ -104,8 +106,8 @@ requiring a high-performance cluster.
 %%% support that view and introduce explicitly-spatial/geographical ways to
 %%% improve CV models for spatial imagery
 Is geography relevant in image classification problems, then? The results presented
-above suggest so. An introduction of geographical methods to improve image
-classification models based on spatial imagery proves to be beneficial and makes use of
+above suggest so. An introduction of explicit geographical methods to improve image
+classification models based on spatial imagery proves to be beneficial and makes use of what a
 unique - spatial - dimension offers. It requires moving beyond traditionally used
 pre-trained models than have no sense of adjacency of individual chips/samples. We need
 to make a step towards merging our GIS knowledge with the one that lies in the field of
