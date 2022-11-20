@@ -16,11 +16,13 @@ jobs:
           #working_directory: ./
           root_file: |
             signature_ai.tex
+            ijgis_template/interacttfvsample.tex
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add signature_ai.pdf
+          git add ijgis_template/interacttfvsample.pdf
           git commit -m "Build PDF" -a --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
