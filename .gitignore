@@ -129,3 +129,8 @@ dmypy.json
 .pyre/
 signature_ai.aux
 signature_ai.out
+ijgis_template/manuscript.aux
+.gitignore
+ijgis_template/manuscript.blg
+.gitignore
+ijgis_template/manuscript.bbl
