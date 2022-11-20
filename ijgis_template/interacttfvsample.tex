@@ -28,12 +28,17 @@
 
 \title{Learning from Deep Learning: lessons from using computer vision to identify (urban) form and function in open data satellite imagery}
 
+\maketitle % included here only for anonymity of peer review
+
 \author{
-\name{A.~N. Author\textsuperscript{a}\thanks{CONTACT A.~N. Author. Email: latex.helpdesk@tandf.co.uk} and John Smith\textsuperscript{b}}
-\affil{\textsuperscript{a}Taylor \& Francis, 4 Park Square, Milton Park, Abingdon, UK; \textsuperscript{b}Institut f\"{u}r Informatik, Albert-Ludwigs-Universit\"{a}t, Freiburg, Germany}
+\name{Martin Fleischmann\textsuperscript{a}\thanks{CONTACT Martin Fleischmann. Email: m.fleischmann@liverpool.ac.uk} and Daniel Arribas-Bel\textsuperscript{a}\textsuperscript{b}}
+\affil{\textsuperscript{a}Geographic
+Data Science Lab, Department of Geography and Planning, University of
+Liverpool, Roxby Building , 74 Bedford St S , Liverpool , L69 7ZT, United
+Kingdom; \textsuperscript{b}The Alan Turing Institute, British Library, 96 Euston Road, London, England, NW1 2DB, United Kingdom}
 }
 
-\maketitle
+% \maketitle % commented out for anonymity of peer review
 
 \begin{abstract}
   The building blocks that make up cities -the activities and agents conceptualised as
@@ -559,7 +564,7 @@ learning-focused research, our focus is not on the architecture of the CNN
 itself. We assume the effect of geographic choices will largely show similar
 behaviour irrespective of the network architecture. For that reason, throughout
 our experiments we use \texttt{EfficientNetB4} \citep{https://doi.org/10.48550/arxiv.1905.11946}, pre-trained
-on the popular ImageNet dataset \citep{deng2009imagenet}. Appendix \ref*{sec:appendixA} shows a brief comparison of
+on the popular ImageNet dataset \citep{deng2009imagenet}. Appendix \ref{sec:appendixA} shows a brief comparison of
 several standard neural network architectures and their performance on a subset of data
 to motivate our decision. We then apply transfer learning by re-training the
 top layer of the pre-trained model and replacing it by a
@@ -787,7 +792,7 @@ tend to be the easiest to predict. Regarding the models, there is no immediate c
 made apart from a clear indication that the maximum probability (\texttt{maxprob}) approach is generally
 worse than any of the modelling, suggesting that there is a value in the modelling step.
 The within-class accuracy can be further explored using confusion matrices available as an
-Appendix \ref*{sec:appendixC}.
+Appendix \ref{sec:appendixC}.
 
 
 \begin{figure}
@@ -1152,6 +1157,133 @@ commercial subjects. Research in the remote sensing area will face not a lack of
 available data but the opposite. We may find ourselves in a situation where a vast
 amount of data streams will come our way, but we will struggle to make sense of it. We
 believe that the research presented in this article helps in finding our way through.
+
+\bibliographystyle{tfv}
+\bibliography{interacttfvsample}
+
+\clearpage
+
+\appendix
+\section{Technical appendix}
+\label{sec:appendix}
+
+\subsection{Comparison of neural network architecture}
+\label{sec:appendixA}
+
+\begin{table}
+    \centering
+\begin{tabular}{llll}
+    \toprule
+    architecture & top layer & \# neurons in top layer &       global accuracy \\
+    \midrule
+    EfficientNetB4 &   Flatten &                    128 &  0.663482 \\
+    EfficientNetB4 &   Flatten &                    256 &  0.715764 \\
+    EfficientNetB4 &   Flatten &                    512 &  0.697187 \\
+    EfficientNetB4 &   GlobalAveragePooling2D &                    128 &  0.723726 \\
+    EfficientNetB4 &   GlobalAveragePooling2D &                    256 &  0.715764 \\
+    EfficientNetB4 &   GlobalAveragePooling2D &                    512 &  0.727972 \\
+        ResnNet50 &   Flatten &                    128 &  0.481157 \\
+        ResnNet50 &   Flatten &                    256 &  0.481423 \\
+        ResnNet50 &   Flatten &                    512 &  0.522824 \\
+        ResnNet50 &   GlobalAveragePooling2D &                    128 &  0.469745 \\
+        ResnNet50 &   GlobalAveragePooling2D &                    256 &  0.469745 \\
+        ResnNet50 &   GlobalAveragePooling2D &                    512 &  0.526274 \\
+           VGG19 &   Flatten &                    128 &  0.708333 \\
+           VGG19 &   Flatten &                    256 &  0.675425 \\
+           VGG19 &   Flatten &                    512 &  0.692144 \\
+           VGG19 &   GlobalAveragePooling2D &                    128 &   0.69931 \\
+           VGG19 &   GlobalAveragePooling2D &                    256 &  0.678609 \\
+           VGG19 &   GlobalAveragePooling2D &                    512 &   0.67224 \\
+    \bottomrule
+    \end{tabular}
+\caption{\label{tab:app_nns}\footnotesize Comparison of global accuracy of different
+architectures of neural network on a sample of data with signature types aggregated into
+three classes (centres, periphery, countryside) using the baseline image classification.
+EfficientNetB4 with GlobalAveragePooling2D and 256 neurons has been used in the final
+experiment.}
+\end{table}
+
+
+\pagebreak
+
+\subsection{Within-class performance by spatial signature}
+\label{sec:appendixB}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/wc_accuracy_x_signature.png}
+    \caption{\footnotesize Within-class accuracy scores grouped by signature. Each panel
+    represents results from one of the 12 signatures predicted. Each column in
+    the heatmap
+    corresponds to one of the five models compared, namely:
+    histogram-based boosted classifier (\texttt{HGBC}) with features
+    pertaining only to a given chip (\texttt{baseline}) or including also features
+    from neighbouring ones (\texttt{baseline-wx}); Logit ensemble
+    (\texttt{logite}) with the same two variations; and a simpler maximum
+    probability approach (\texttt{maxprob}). Each row
+    corresponds to a pair of chipsize (8, 16, 32, and 64 pixels)
+    and architecture (baseline image classification, or \texttt{bic}; sliding
+            image classification, or \texttt{sic}; and multi-output
+    regression, or \texttt{mor}) used in the neural network stage of the
+    pipeline.}
+    \label{fig:wc_accuracy_x_signature}
+\end{figure}
+
+\pagebreak
+
+\subsection{Confusion matrices}
+\label{sec:appendixC}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{fig/maxprob_cm.png}
+    \caption{\footnotesize Confusion matrices for individual models denoting
+    the ability of each model in prediction of a correct label per each class
+    using the maximum probability architecture.}
+    \label{fig:maxprob_cm}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{fig/logite_baseline_cm.png}
+    \caption{\footnotesize Confusion matrices for individual models denoting
+    the ability of each model in prediction of a correct label per each class
+    using the logit ensemble baseline architecture.}
+    \label{fig:logite_baseline_cm}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{fig/logite_baseline-wx_cm.png}
+    \caption{\footnotesize Confusion matrices for individual models denoting
+    the ability of each model in prediction of a correct label per each class
+    using the logit ensemble baseline-wx architecture.}
+    \label{fig:maxprob_cm}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{fig/HistGradientBoostingClassifier_baseline_cm.png}
+    \caption{\footnotesize Confusion matrices for individual models denoting
+    the ability of each model in prediction of a correct label per each class
+    using the HGBC baseline architecture.}
+    \label{fig:HistGradientBoostingClassifier_baseline_cm}
+\end{figure}
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{fig/HistGradientBoostingClassifier_baseline-wx_cm.png}
+    \caption{\footnotesize Confusion matrices for individual models denoting
+    the ability of each model in prediction of a correct label per each class
+    using the HGBC baseline-wx architecture.}
+    \label{fig:HistGradientBoostingClassifier_baseline-wx}
+\end{figure}
+
 
 
 \end{document}
