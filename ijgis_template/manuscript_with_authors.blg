@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: manuscript_with_authors.aux
+The style file: tfv.bst
+Database file #1: references.bib
+Warning--entry type for "zanaga_daniele_2021_5571936" isn't style-file defined
+--line 2241 of file references.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty journal in europeanenvironmentagency1990
+Warning--empty journal in https://doi.org/10.48550/arxiv.1905.11946
+You've used 44 entries,
+            3328 wiz_defined-function locations,
+            932 strings with 15030 characters,
+and the built_in function-call counts, 28597 in all, are:
+= -- 2506
+> -- 832
+< -- 52
++ -- 389
+- -- 288
+* -- 1951
+:= -- 3766
+add.period$ -- 144
+call.type$ -- 44
+change.case$ -- 430
+chr.to.int$ -- 45
+cite$ -- 46
+duplicate$ -- 2299
+empty$ -- 2267
+format.name$ -- 389
+if$ -- 6109
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 451
+newline$ -- 138
+num.names$ -- 132
+pop$ -- 1056
+preamble$ -- 1
+purify$ -- 375
+quote$ -- 0
+skip$ -- 1154
+stack$ -- 0
+substring$ -- 1527
+swap$ -- 1234
+text.length$ -- 36
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 254
+warning$ -- 2
+while$ -- 184
+width$ -- 0
+write$ -- 492
+(There were 3 warnings)
