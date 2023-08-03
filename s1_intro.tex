@@ -138,7 +138,18 @@ weights for all the other layers.
 
             %%%%%%%%%%%%%%%
 
-% Research gap
+% RS focusing on urban env are of three kinds
+    % LCLZ whose focus is not primarily on urban and only a fraction of their classes are urban
+    % Built/unbuilt type of classifications (include JRC with 4 levels)
+    % LCZ with pre-defined classes with an RS application in mind
+% The understanding on how much of urban insight can we see from above is still very limited
+% This paper takes a classification that 1) flips the ratio of urban/non-urban classes compared to
+% LCLZ; 2) is data driven, with no particular secondary use case in mind (i.e. not designed to be seen);
+% and asks the following questions:
+    % can we reliably detect this type and granularity of urban classification from open satellite imagery?
+    % given the geographical nature of the taks, is there a scope for spatially-explicit methods built on top of whatever is neural net doing?
+    % would this potentially allow us to use AI and ML to potentially rollout time series of signatures based on Sentinel 2?
+
 While deep learning has been recently introduced in the analysis of urban satellite
 imagery, its application has so far mostly ignored the geographical nature of
 the images being fed to these algorithms. This is not entirely unreasonable.
@@ -154,21 +165,31 @@ cutting edge computer vision has been deployed to images that, rather than
 animals or people, represent locations on Earth observed from above. Because
 of the overall impressive performance of modern algorithms, the results are
 impressive, even with largely unmodified models. However, this does not imply
-there is not further margin for improvement.
+there is no further margin for improvement.
 
-This paper advances our understanding of how deep learning can be applied to
-satellite imagery by focusing on aspects linked to the geographical nature of the
-data rather than on the computational architecture of the algorithms.
-Specifically, our contribution is twofold. First, we argue (and demonstrate)
-there is value in considering the explicitly geographical nature of satellite
-imagery when applying deep learning algorithms in this context.
-In particular, we focus on the role of scale and context, two often overlooked
-aspects in studies of this kind.
-%
-Second, we also show deep learning can be a powerful tool to not only predict
-complex patterns of urban form and function in satellite images, but also to
-better understand them, uncovering some of their key characteristics and
-processes.
+No matter if the method is using the latest neural network or more traditional remote
+sensing methods, the applications share a common limitation - they oversimplify urban
+environment. In the most simple cases, we can talk about differentiation between
+built-up areas and non-built-up land, occasionally expanded to a few gradual steps in
+between (JRC). Land use and land cover classifications focus primarily on non-urban
+landscape, leaving all cities in a handful of classes. Finally, LCZ classification is
+pre-defined and designed with an RS application in mind. The understanding on how much
+of "generic" urban insight can be seen from above is still very much an unexplored area.
+
+This paper advances our understanding on how far can we go in application of
+conventional deep learning methods to satellite imagery in a pursuit of capturing
+composition of primarily urbanised landscape. It starts from the existing classification
+of Great Britain that is data-driven, designed with no particular secondary use case in
+mind (i.e. it is not designed to be seen on satellite imagery), and that flips the ratio
+of urban vs non-urban classes compared to most LCLZ classifications. From there, we move
+towards answering whether we can reliably detect this type and granularity of urban
+classification from open satellite imagery. Furthermore, given the geographical nature
+of the task, is there a scope for spatially-explicit methods built on top of the output
+of neural network to bridge the gap between computer vision and geography? Understanding
+these topics can potentially allow development of a time series of otherwise static
+classifications like the one used in this paper and uncover the evolution of urban form
+and function in cities.
+
 %
 The remainder of the paper is structured as follows:
 Section \ref{sec:matmet} describes the data we use as well as the
