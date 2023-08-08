@@ -502,4 +502,22 @@ $\delta_m/\gamma_a/\beta_1/\beta_2/\beta_3/\zeta_s$, parameters to be
 estimated by the regression model, provide a direct and formal test to the key
 questions we set out to answer with our experiments.
 
+\subsubsection{A note on image segmentation}
 
+When selecting the CNN architecture, we have intentionally excluded image
+segmentation. While it seems like an ideal candidate for the task at hand, there are
+several reasons for its exlusion. The first has to do with the spatial signatures and the
+nature of the boundaries between individual types. While the dataset from
+\cite{fleischmann2022geographical} delineates them with hard boundaries when one cell
+is a type A and the neighbouring one a type B, the reality is not that simple, and these
+boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
+switch between one type of urban environment and the other one. In many cities, two
+types tend to form a transition on the edges where neither is dominant. A situation like
+this is very challenging for the image segmentation as it often looks at delineation of
+water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
+segmentation, having a prediction for individual pixels, would not allow us to use the
+second part of the method and test the effect of spatial lag in modelling efficiently. The only
+way of doing that would be to run the experiment on a pixel level which would be
+extremely computationally expensive, hence challenging to reproduce. We believe that the
+method that can be run on a local machine is in the end, more valuable than the one
+requiring a high-performance cluster.

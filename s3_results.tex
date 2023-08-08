@@ -2,7 +2,57 @@
 \label{sec:results}
 
 % Overview of numbers
+Global accuracy is shown in the Table \ref{tab:global_accuracy}. It may seem that the
+results are underwhelming but taking a closer look, it is true only for some models,
+usually using smaller chip sizes and simpler architecture. Out of 60 tested models,
+14 have global accuracy over 0.5, 6 over 0.6 and one over 0.7. Compared to the relevant
+metrics from established LULC models, \citealp{venter2022global} reports that ESRI's
+Land Cover reaches global accuracy of .75, Google's Dynamic World 0.71 and ESA's World
+Cover 0.65, rendering our highest performing models at par with these. However, they
+do perform considerably worse than established LCZ models, that report global accuracy of
+0.87 \citep{taubenbock2020}. Yet, this difference is expected as LCZ classes are designed with remote sensing
+in mind while spatial signatures aim to reflect the form and function independent of whether
+the distinction between two signature types shall be seen from satellite imagery. Nevertheless,
+global accuracy is far from providing the full picture.
 
+\martin{The JSON with HistGradientBoostingClassifier 16 BIC is corrupted, so we don't know the value.}
+
+\begin{table}
+        \centering
+\begin{tabular}{llrrr}
+        \toprule
+         & Chip Size & B.I.C. & S.I.C & M.O.R \\
+        \midrule
+        \multirow[t]{4}{*}{maxprob} & 8 & 0.30 & 0.32 & 0.29  \\
+        & 16 & 0.27 & 0.35 & 0.28  \\
+        & 32 & 0.42 & 0.34 & 0.35  \\
+        & 64 & \textit{0.50} & 0.46 & \textit{0.58}  \\
+        \cline{1-2}
+        \multirow[t]{4}{*}{logite} & 8 & 0.32 & 0.35 & 0.31  \\
+         & 16 & 0.36 & 0.36 & 0.31  \\
+         & 32 & 0.46 & 0.36 & 0.36  \\
+         & 64 & \textbf{0.60} & 0.47 & \textit{0.58} \\
+        \cline{1-2}
+        \multirow[t]{4}{*}{logite-wx} & 8 & 0.34 & 0.41 & 0.33  \\
+         & 16 & 0.42 & 0.46 & 0.33  \\
+         & 32 & \textit{0.52} & 0.48 & 0.39  \\
+         & 64 & \textbf{0.67} & \textit{0.55} & \textit{0.59} \\
+        \cline{1-2}
+        \multirow[t]{4}{*}{HistGradientBoostingClassifier} & 8 & 0.32 & 0.36 & 0.32  \\
+         & 16 & NaN & 0.37 & 0.33  \\
+         & 32 & 0.48 & 0.40 & 0.49  \\
+         & 64 & \textbf{0.62} & 0.48 & \textit{\textbf{0.71}}  \\
+        \cline{1-2}
+        \multirow[t]{4}{*}{HistGradientBoostingClassifier-wx} & 8 & 0.35 & 0.44 & 0.35  \\
+         & 16 & 0.44 & 0.47 & 0.34  \\
+         & 32 & \textit{0.54}  & \textit{0.50} & 0.40 \\
+         & 64 & \textbf{0.68} & \textit{0.56} & \textbf{0.63} \\
+        \bottomrule
+\end{tabular}
+\caption{\label{tab:global_accuracy}\footnotesize Global accuracy of all the models
+tested in this study. Values higher than 0.5 are highlighted in italic, values higher than
+0.6 in bold and a value over 0.7 in bold italic.}
+\end{table}
 
 % figure 1 - within class accuracy per model
 Within-class accuracy by the model can be seen in Figure \ref{fig:wc_accuracy_x_model} (a
@@ -18,7 +68,6 @@ made apart from a clear indication that the maximum probability (\texttt{maxprob
 worse than any of the modelling, suggesting that there is a value in the modelling step.
 The within-class accuracy can be further explored using confusion matrices available as an
 Appendix \ref*{sec:appendixC}.
-
 
 \begin{figure}
     \centering
@@ -255,6 +304,3 @@ significance when using a union of weights.
     respectively. Standard errors in parenthesis. Coefficients significant at
     the 1\%, 5\%, 10\% level are noted with ***, **, and *, respectively.}
 \end{table}
-
-
-\martin{We should add a table of global accuracy and a short paragraph on it.}

@@ -50,7 +50,7 @@ signature types. The within-class performance metrics indicate that some classes
 extreme sides of the urban-rural dimension are easier to detect. That is not surprising
 as both \textit{Urbanity} and \textit{Wild countryside} signature types are unique,
 while a difference between \textit{Dense residential neighbourhoods} and
-\textit{Connected residential neighbourhoods} that are visible on the satellite imagery
+\textit{Connected residential neighbourhoods} that is visible on the satellite imagery
 is much more subtle. It is also common that some of the classes are easier to
 distinguish than others \cite{zanaga_daniele_2021_5571936, karra2021global}. However,
 any model deployed for periodical updates of signature classification will have to deal
@@ -83,24 +83,6 @@ problem, where no pixels are shared among chips and all chips need to be exclusi
 single signature type. The issue is alleviated by class weights in the neural network
 architecture, but such a solution is not optimal.
 
-When selecting the CNN architecture, we have intentionally excluded image
-segmentation. While it seems like an ideal candidate for the task at hand, there are
-several reasons for its exlusion. The first has to do with the spatial signatures and the
-nature of the boundaries between individual types. While the dataset from
-\cite{fleischmann2022geographical} delineates them with hard boundaries when one cell
-is a type A and the neighbouring one a type B, the reality is not that simple, and these
-boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
-switch between one type of urban environment and the other one. In many cities, two
-types tend to form a transition on the edges where neither is dominant. A situation like
-this is very challenging for the image segmentation as it often looks at delineation of water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
-segmentation, having a prediction for individual pixels, would not allow us to use the
-second part of the method and test the effect of spatial lag in modelling efficiently. The only
-way of doing that would be to run the experiment on a pixel level which would be
-extremely computationally expensive, hence challenging to reproduce. We believe that the
-method that can be run on a local machine is in the end, more valuable than the one
-requiring a high-performance cluster.
-
-
 %% What do we make of it in terms of geography
 %%% Reiterate the point on the relevance of geography and how our results
 %%% support that view and introduce explicitly-spatial/geographical ways to
@@ -112,6 +94,8 @@ unique - spatial - dimension offers. It requires moving beyond traditionally use
 pre-trained models than have no sense of adjacency of individual chips/samples. We need
 to make a step towards merging our GIS knowledge with the one that lies in the field of
 AI, often based in departments of computer science rather than geography.
+
+\martin{New para - okay, we know which methods are best and what are the effects of choices. But it is all good enough?}
 
 % finish with a very general note on the amount of sat data coming and the need to make
 % sense of it
