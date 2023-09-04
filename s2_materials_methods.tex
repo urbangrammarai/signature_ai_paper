@@ -16,27 +16,27 @@ signatures used as labels need to be explained further.
 \subsubsection{British Spatial Signatures}
 % 500 words
 
-Spatial signatures are a way of classification of space covering the entirety of a case
+Spatial signatures are a classification of space covering the entirety of a case
 study area. They are defined as \textit{"a characterisation of space based on form and
-function designed to understand urban environments"} \citep{dab_mf_2021a}, and the
-definition already points at the clear distinction between signatures and traditional
+function designed to understand urban environments"} \citep{dab_mf_2021a}. This
+definition points at the clear distinction between signatures and traditional
 LULC classifications. Taking the example of CORINE
 \citep{europeanenvironmentagency1990} as a representative of LULC, it has 44 distinct
-classes, out of which 2 cover urban form, and the other 6 can be loosely related to urban
+classes, out of which 2 cover urban form, and six other can be loosely related to urban
 areas\footnote{Continuous urban fabric, Discontinuous urban fabric; Construction sites,
 Green urban areas, Sport and leisure facilities, Industrial or commercial units, Road
-and rail networks and associated land, Port areas}. A similar situation is with recently
+and rail networks and associated land, Port areas}. A similar situation arises with recently
 released global LULC datasets. European Space Agency's WorldCover project distinguishes
 11 classes, of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
 Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt
 areas \citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not
 very suited for research applications focusing on urban environments. Spatial signatures
-flip this ratio as they are primarily classifying urban space.
+invert this ratio as they are primarily classifying urban space.
 
 There are two main concepts embedded in spatial signatures delivering urban-focused
 classification. The first one is the spatial unit called the enclosed tessellation cell
-(ETC). To derive ETCs, \citep{dab_mf_2021a} first generate \textit{enclosures}, spaces fully enclosed by
-a set of barriers (roads, railways, rivers, coastline). ETCs are then a result of
+(ETC). To derive ETCs, \cite{dab_mf_2021a} first generate \textit{enclosures}, spaces fully enclosed by
+a set of barriers (roads, railways, rivers, coastline). ETCs are an outcome of
 Voronoi tessellation based on building footprint polygons. The resulting spatial unit
 has adaptive granularity reflecting the scale of each urban pattern. The
 second is the selection of characters describing each ETC. They measure form and function,
@@ -54,7 +54,7 @@ application of the concept of spatial signatures in
 the context of Great Britain. It divides the space into 16 data-driven classes
 (Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Out of these 16
 classes, nine are entirely urban, four are peripheral, and only three classify natural spaces,
-inverting the ratio of built vs unbuilt classes known from LULC. However, out
+inverting the ratio of built vs unbuilt classes common in LULC. However, out
 of these 16 classes, some are very rare, and it would not be feasible to attempt to
 predict them. Therefore, we merge five classes under the "urbanity" group into a
 single one and use the resulting 12 classes throughout this paper, while using entirety
@@ -91,20 +91,21 @@ of Great Britain as a study area.
     25 \\
     Disconnected suburbia                &    708.9 &   564,318 &          0 &
     4 \\
-    Local urbanity                       &    231.1 &    86,380 &          0 &
+    Local urbanity*                       &    231.1 &    86,380 &          0 &
     1 \\
-    Concentrated urbanity                &      7.8 &     1,390 &          0 &
+    Concentrated urbanity*                &      7.8 &     1,390 &          0 &
     0 \\
-    Regional urbanity                    &     76.4 &    21,760 &          0 &
+    Regional urbanity*                    &     76.4 &    21,760 &          0 &
     0 \\
-    Metropolitan urbanity                &     16.5 &     3,739 &          0 &
+    Metropolitan urbanity*                &     16.5 &     3,739 &          0 &
     0 \\
-    Hyper concentrated urbanity          &      2.2 &       264 &          0 &
+    Hyper concentrated urbanity*          &      2.2 &       264 &          0 &
     0 \\
     \bottomrule
 \end{tabular}
     \caption{\label{tab:sig_types}Classes of British spatial signatures and their
-    coverage in terms of area and a number of ETCs.}
+    coverage in terms of area and a number of ETCs. Urbanity classes marked with * are
+    combined for the experiments presented in this paper.}
 \end{table}
 
 
@@ -145,11 +146,11 @@ bound} of the performance of the presented method and can be only improved with 
 other spectral bands or other data (e.g. synthetic-aperture radar imagery).
 
 Another notable aspect of the Sentinel 2 imagery is the resolution. Ten meters per pixel
-may be enough to distinguish LULC classes, as shown by the research project discussed
-above. However, there is the question of whether it is enough to segment urban
+may be enough to distinguish LULC classes, as shown by the examples discussed
+above. However, it is unclear whether it is enough to delineate types of urban
 environments. Individual buildings often do not stretch beyond the spatial extent of two
 pixels, which is severely limiting what we can \textit{see} on the image, as illustrated
-in Figure \ref{fig:signatures}. While other data sources may provide better
+in Figure \ref{fig:chips}. While other data sources may provide better
 resolution\footnote{For example, commercial imagery by Maxar reaches a resolution of
 30cm per pixel and imagery by Planet of 50cm per pixel}, potentially improving model
 performance, this research is bound within the limits of \textit{open data}, where
@@ -170,20 +171,36 @@ geographical decisions being tested has a significant effect on the resulting
 performance and should therefore be considered when applying CNN to spatial
 problems.
 
+When selecting the CNN architecture, we have intentionally excluded image
+segmentation. While it seems like an ideal candidate for the task at hand, there are
+several reasons for its exclusion. The first has to do with the spatial signatures and the
+nature of the boundaries between individual types. While the dataset from
+\cite{fleischmann2022geographical} delineates them with hard boundaries when one cell
+is a type A and the neighbouring one a type B, the reality is not that simple, and these
+boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
+switch between one type of urban environment and the other one. In many cities, two
+types tend to form a transition on the edges where neither is dominant. A situation like
+this is very challenging for the image segmentation as it often looks at delineation of
+water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
+segmentation, having a prediction for individual pixels, would not allow us to use the
+second part of the method and test the effect of spatial lag in modelling efficiently. The only
+way of doing that would be to run the experiment on a pixel level which would be
+extremely computationally expensive, hence challenging to reproduce. We believe that the
+method that can be run on a local machine is in the end, more valuable than the one
+requiring a high-performance cluster.
+
 Overall, our exercise is structured as a comparison of models that attempt to
 predict the 12 spatial signatures entirely from Sentinel 2 imagery. Each model 1) takes
-a set of chips as input; 2) runs the class prediction using the convolutional neural
+a set of training data as input; 2) runs the class prediction using the convolutional neural
 network (CNN); and 3) builds a (spatial) model on top of the resulting probabilities. The
-differences between the models are capturing the geographical options that are being tested - an
+differences between the models are capturing the geographical options that are being tested:
 extent of the area sampled from the satellite imagery into a single \textit{chip},
 presence of spatial augmentation, class exclusivity within each chip, and an
 architecture of probability modelling on top of a prediction coming from the CNN.
-
 Finally, the performance of each model is assessed using both traditional non-spatial
 techniques used in deep learning and bespoke spatial metrics. Given a large number of
 resulting values, a regression approach is used to determine the effect of the tested
 options.
-
 Each of the steps is further discussed in detail in the subsequent sections.
 
 \subsubsection{Chip size}
@@ -208,24 +225,24 @@ information each chip can hold. Given the relatively coarse resolution of Sentin
 chip of 100x100 meters consists of only 10x10 pixels, which may not be enough to capture
 the nature of a signature type and distinguish it from other types. On the other hand, a
 chip of 1000x1000 meters, which is likely large enough to capture the difference, will
-not fit in most of the signature boundaries and we would end with only a few chips per
+not fit in most of the signature boundaries and we would end up with only a few chips per
 urban class.
 
-The literature rarely discusses this decision-making process when defining the chip
+The literature rarely discusses the decisions involved in defining the chip
 size for single-class chip classification. In some cases, the size is predetermined due to the requirement of either a
 pre-trained model or an existing set of labelled data \citep{taubenbock2020}. In
-other ones, the size that has
+others, the size that has
 been used in previous studies is applied again without discussing the implications
 of such a decision \citep{wang2018mapping}. From a spatial analysis
 perspective, this approach is surprising as deciding the chip size is a prime example of the
 modifiable areal unit problem (also known as MAUP,
 \citealp{openshaw1981modifiable}), especially the aspect about scale, which states that
 a change of the scale may affect the outcome of an experiment. Hence such an effect
-should be at least considered in an interpretation if not intentionally minimized.
+should be at least considered in an interpretation if not minimized where possible.
 
-In this work, we try to understand the effect of a chip size by testing all the models
+In this work, we try to understand the effect of chip size by testing all the models
 based on four different chip sizes - 80, 160, 320 and 640 meters representing chips of
-8x8, 16x16, 32x32 and 64x64 pixels, respectively, illustrated on a Figure \ref{fig:signatures}
+8x8, 16x16, 32x32 and 64x64 pixels, respectively, illustrated on a Figure \ref{fig:chips}
 and a Supplementary Figure \ref{fig:chip_fits}.
 
 
@@ -268,7 +285,7 @@ pool of chips to be used. This process is done repeatedly to ensure that each cl
 a reasonable amount of chips to work with, while chips from the large signature types
 are intentionally undersampled to retain a relative balance between the classes in the training data.
 
-It is to be noted that sliding can cause a data leakage (sequences of pixels being
+It is to be noted that sliding can cause data leakage (sequences of pixels being
 present in both training and validation) if done before splitting the data into
 training and validation subsets. Therefore, we first create the initial grid, subdivide
 it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40\% for
@@ -317,7 +334,7 @@ image classification'') is a standard image classification problem, using the se
 that are fully within a single signature type. The custom top layer of the pre-trained CNN then contains a Global Average
 Pooling (2D) layer, a dense layer with ReLu activation and 256 neurons, and a dense
 layer with the softmax activation and a number of neurons equal to a number of classes
-(12). A result for a single chip is a collection of 12 probabilities
+(12). The result for a single chip is a collection of 12 probabilities
 of a chip belonging to each signature type. The sum of all probabilities is
 one.
 An extension of this approach (\texttt{sic}, for ``sliding image
@@ -473,12 +490,12 @@ of the characteristics of the setup evaluated. Specifically, we estimate the
 following two equations. First, for global metrics, we run:
 
 \begin{equation}
-        Perf_i = \alpha +
-        \sum_m \delta_m M_i +
-        \sum_a \gamma_a A_i +
-        \beta_1 Chip \; Size_i +
-        \beta_2 W_i +
-        \epsilon_i
+        Perf_r = \alpha +
+        \sum_m \delta_m M_r +
+        \sum_a \gamma_a A_r +
+        \beta_1 Chip \; Size_r +
+        \beta_2 W_r +
+        \epsilon_r
         \label{eq:reg_global}
 \end{equation}
 
@@ -499,14 +516,14 @@ and $\epsilon_i \sim \mathcal{N}(0, \sigma)$ is an i.i.d. error term.
 Second, for class-based scores, we fit:
 
 \begin{equation}
-        Perf_{i-s} = \alpha +
-        \sum_m \delta_m M_i +
-        \sum_a \gamma_a A_i +
-        \beta_1 Chip \; Size_i +
-        \beta_2 W_i +
-        \beta_3 \left[\%\right]Obs_{i-s} +
-        \sum_s \zeta_s S_{i-s} +
-        \epsilon_{i-s}
+        Perf_{r-s} = \alpha +
+        \sum_m \delta_m M_r +
+        \sum_a \gamma_a A_r +
+        \beta_1 Chip \; Size_r +
+        \beta_2 W_r +
+        \beta_3 \left[\%\right]Obs_{r-s} +
+        \sum_s \zeta_s S_{r-s} +
+        \epsilon_{r-s}
         \label{eq:reg_class}
 \end{equation}
 
@@ -520,23 +537,3 @@ Importantly for both equations,
 $\delta_m/\gamma_a/\beta_1/\beta_2/\beta_3/\zeta_s$, parameters to be
 estimated by the regression model, provide a direct and formal test to the key
 questions we set out to answer with our experiments.
-
-\subsubsection{A note on image segmentation}
-
-When selecting the CNN architecture, we have intentionally excluded image
-segmentation. While it seems like an ideal candidate for the task at hand, there are
-several reasons for its exlusion. The first has to do with the spatial signatures and the
-nature of the boundaries between individual types. While the dataset from
-\cite{fleischmann2022geographical} delineates them with hard boundaries when one cell
-is a type A and the neighbouring one a type B, the reality is not that simple, and these
-boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
-switch between one type of urban environment and the other one. In many cities, two
-types tend to form a transition on the edges where neither is dominant. A situation like
-this is very challenging for the image segmentation as it often looks at delineation of
-water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
-segmentation, having a prediction for individual pixels, would not allow us to use the
-second part of the method and test the effect of spatial lag in modelling efficiently. The only
-way of doing that would be to run the experiment on a pixel level which would be
-extremely computationally expensive, hence challenging to reproduce. We believe that the
-method that can be run on a local machine is in the end, more valuable than the one
-requiring a high-performance cluster.

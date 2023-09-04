@@ -2,7 +2,7 @@
 \label{sec:results}
 
 % Overview of numbers
-Global accuracy is shown in the Table \ref{tab:global_accuracy}. It may seem that the
+Global accuracy is shown in Table \ref{tab:global_accuracy}. It may seem that the
 results are underwhelming but taking a closer look, it is true only for some models,
 usually using smaller chip sizes and simpler architecture. Out of 60 tested models,
 14 have global accuracy over 0.5, 6 over 0.6 and one over 0.7. Compared to the relevant
@@ -57,16 +57,16 @@ tested in this study. Values higher than 0.5 are highlighted in italic, values h
 % figure 1 - within class accuracy per model
 Within-class accuracy by the model can be seen in Figure \ref{fig:wc_accuracy_x_model} (a
 sister figure where scores are grouped by signature rather than by model can be found in
-Appendix \ref{sec:appendixB}). We can notice some consistent patterns already. The
+Appendix \ref{sec:appendixB}). We notice some consistent patterns already. The
 baseline image classification (\texttt{bic}) tends to underperform other architectures,
-especially on more urban signature types. On the other hand, multi-output regression (\texttt{mor}),
+especially on more urban signature types. On the other hand, multi-output regression (\texttt{mor}), and
 using the larger chip size (32 or 64), tends to show the highest values across signature
 types and models. If we look at accuracy for individual signature types, both extremes
 (urbanity on one side and both countryside classes on the other)
 tend to be the easiest to predict. Regarding the models, there is no immediate conclusion to be
 made apart from a clear indication that the maximum probability (\texttt{maxprob}) approach is generally
 worse than any of the modelling, suggesting that there is a value in the modelling step.
-The within-class accuracy can be further explored using confusion matrices available as an
+The within-class accuracy can be further explored using confusion matrices available in
 Appendix \ref*{sec:appendixC}.
 
 \begin{figure}
@@ -90,7 +90,7 @@ Appendix \ref*{sec:appendixC}.
 
 Whilst plotting the accuracy is a way to build an intuition about the performance of
 individual options, it does not quantify their effects. The linear regressions shown in
-tables \ref{tab:non_sp_reg} and \ref{tab:non_sp_reg_wc} provide a better insight. The
+tables \ref{tab:non_sp_reg} and \ref{tab:non_sp_reg_wc} provide better insight. The
 first regression explains global performance scores (Cohen's kappa, Global Accuracy, Marco F1
 weighted and Macro F1 average). We can draw a few conclusions from this. First, the chip size
 seems to have a positive effect on the results, as it is consistently
@@ -100,7 +100,7 @@ CNN step, we do not see a lot of significance but there are indications that sli
 image classification and multi-output regression approaches outperform baseline image
 classification. Comparing the probability modelling step, we see an indication that the
 maximum probability is the least performant of the options, again suggesting the value
-of the modelling.
+of post-CNN modelling.
 
 
 % table 1 non spatial, one col for regression
@@ -141,14 +141,15 @@ N.                                                &     60     &           60   
     the 1\%, 5\%, 10\% level are noted with ***, **, and *, respectively.}
 \end{table}
 
-The table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
-what we have seen in figure \ref{fig:wc_accuracy_x_model}. The
-multi-output regression consistently outperforms both baseline image classification and
+Table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
+what we have seen in Figure \ref{fig:wc_accuracy_x_model}.
+Multi-output regression consistently outperforms both baseline image classification and
 sliding image classification (which shows inconsistent results itself). Chip size has,
 again, a positive effect on the performance, while the inclusion of spatial
 lag in the modelling also consistently shows a positive impact. As assumed above, the
 prediction of signature types on both extremes of the urban-wild range tends to be
-easier than classes in between.
+easier than classes in between, which are, conceptually, the most challenging to predict
+due to the higher amount of \textit{transition land} between class core areas.
 
 \begin{table}
 \begin{tabular}{lccc}
@@ -226,7 +227,7 @@ N.                                                &      720    &      720    & 
 The regression outputs explaining differences in the spatial pattern between observed
 and predicted values measured by the Join Counts statistic offer another - spatially
 explicit - perspective on the performance of tested model configurations. As such, it
-also indicates slightly different results as presented in the table \ref{tab:sp_reg_wc}.
+also indicates slightly different results as presented in Table \ref{tab:sp_reg_wc}.
 Neither option of the probability modelling steps seem to have a significant effect on
 the Join Counts results, unlike in previous performance metrics. However, the
 architecture of the neural network step shows a significant effect as multi-output

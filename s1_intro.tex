@@ -39,7 +39,7 @@ A promising option to improve the frequency of these classifications is
 satellite imagery.
 %% Satellite has radically improved in the last years, and it is set to continue on that technological path
 Satellite technology has radically increased and improved the amount of
-imagery available on the Earth, and shows no signs of slowing down.
+data available on the Earth, and shows no signs of slowing down.
 %% At the same time, the algorithms to process satellite have also seen a revolution in the last ten years (deep learning)
 More and better imagery has been complemented with the rise of new computer
 vision algorithms, such as deep learning \citep{lecun2015},
@@ -47,7 +47,7 @@ that allow to extract more value from the same amount of data; and the
 availability of computing power that makes it possible to deploy them cheaply
 without the steep learning curve required only a few years ago.
 %% These two trends converge in making possible things with satellite that was unthinkable a few years ago
-The convergence of these two trends in remote sensing is unlocking
+The convergence of these three trends in remote sensing is unlocking
 achievements that even very recently seemed beyond the realm of possibility.
 %% Such as measuring UFF using and end-to-end open pipeline (data and code)
 One such area is the use of remote sensing and satellite technology to decode
@@ -129,7 +129,7 @@ Other works however rely on existing architectures like VGG/16
 \citep{simonyan2014very}, UNet \citep{ronneberger2015u}, or ResNet
 \citep{he2016deep}; standardised databases such as ImageNet \citep{ILSVRC15} for
 training; or both (e.g., \citealp{qiu2020fusing,
-karra2021global, srivastava2019understanding}). The former is known as \textit{transfer learning} and
+karra2021global, srivastava2019understanding}). The letter is known as \textit{transfer learning} and
 usually involves re-training of the top layers of the network to customise
 predictions to the specific use case, while retaining unchanged the original
 weights for all the other layers.
@@ -167,32 +167,28 @@ of the overall impressive performance of modern algorithms, the results are
 impressive, even with largely unmodified models. However, this does not imply
 there is no further margin for improvement.
 
-No matter if the method is using the latest neural network or more traditional remote
-sensing methods, the applications share a common limitation - they often oversimplify urban
-environment. In the most simple cases, we can talk about differentiation between
+With many existing methods, there is a tendency towards a simplification of urban environment.
+In the most simple cases, we can talk about differentiation between
 built-up areas and non-built-up land, occasionally expanded to a few gradual steps in
-between (e.g. degree of urbanization by REF JRC). Land use and land cover classifications focus primarily on non-urban
+between (e.g. degree of urbanization by \cite{DIJKSTRA2021103312}). Land use and land cover classifications focus primarily on non-urban
 landscape, leaving all patterns that make up cities in a handful of classes. LCZ classification is
 based on pre-defined conceptual classes designed with an RS application in mind, omitting
 distinctions that are not easy to see on imagery. The understanding on how many
 types of urban insight can be seen from above is still very much an unexplored area.
 
-This paper advances our understanding on how far can we go in application of
-conventional deep learning methods to satellite imagery in a pursuit of capturing
-composition of primarily urbanised landscape. It starts from the existing classification
-of Great Britain that is data-driven, designed with no particular secondary use case in
-mind (i.e. it is not designed to be seen on satellite imagery), and that flips the ratio
+This paper advances our understanding of the extent to which conventional deep learning methods
+can be applied to satellite imagery in order to capture the composition of primarily urbanized
+landscapes. It starts from an existing classification
+of Great Britain that is data-driven, designed to best capture urban form and function from
+available data (i.e. it is not designed to be seen on satellite imagery), and that flips the ratio
 of urban vs non-urban classes compared to most LULC classifications. From there, we move
 towards answering whether we can reliably detect this type and granularity of urban
 classification from open satellite imagery. Furthermore, given the geographical nature
-of the task, is there a scope for spatially-explicit methods built on top of the output
+of the task, whether the is scope for spatially-explicit methods built on top of the output
 of neural network to bridge the gap between computer vision and geography? Understanding
 these topics can potentially allow development of a time series of otherwise static
 classifications like the one used in this paper and uncover the evolution of urban form
-and function in cities.
-
-%
-The remainder of the paper is structured as follows:
+and function in cities. The remainder of the paper is structured as follows:
 Section \ref{sec:matmet} describes the data we use as well as the
 methodological strategy we follow;
 Section \ref{sec:results} presents the key results from our experiments;
