@@ -5,7 +5,7 @@
 \subsection{Comparison of neural network architecture}
 \label{sec:appendixA}
 
-\begin{table}
+\begin{table}[H]
     \centering
 \begin{tabular}{llll}
     \toprule
@@ -119,3 +119,32 @@ experiment.}
     \label{fig:HistGradientBoostingClassifier_baseline-wx}
 \end{figure}
 
+
+\subsection{Fit of chips within signature types}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/chip_fits.png}
+    \caption{\footnotesize An illustration of the relationship between chip size and
+    signature geometry in Edinburgh area. Subplots show all chips that represent a single
+    class using 80 meters (top left), 160 m (top right), 320 m (bottom left) and 640 m (bottom right) chip sizes.}
+    \label{fig:chip_fits}
+\end{figure}
+
+\pagebreak
+
+\subsection{Chip counts}
+\begin{table}
+    \centering
+\begin{tabular}{lrrr}
+    \toprule
+     & B.I.C. & S.I.C & M.O.R. \\
+    \midrule
+    8 & 534,729 & 1,099,439 & 135,264 \\
+    16 & 331,459 & 1,087,827 & 126,016 \\
+    32 & 179,261 & 901,538 & 112,196 \\
+    64 & 132,619 & 373,131 & 94,960 \\
+    \bottomrule
+    \end{tabular}
+\caption{\label{tab:chip_counts}\footnotesize Total number of chips (within all training, validation and secret sets) per chip size and architecture.}
+\end{table}
