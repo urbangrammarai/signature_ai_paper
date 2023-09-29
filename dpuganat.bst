@@ -7,7 +7,7 @@
 %% merlin.mbs  (with options: `ay,nat,nm-revv1,jnrlst,xlab-it,keyxyr,blkyear,dt-beg,yr-per,note-yr,volp-sp,pp-last,num-xser,ser-vol,jnm-x,bkpg-x,add-pub,pre-edn,edparxc,ppx,ed,xedn,etal-xc,etal-it,url,url-blk,em-it,nfss,')
 %% ----------------------------------------
 %% *** Diego Puga's bibliography style file for use with BiBTeX and natbib.sty ***
-%% 
+%%
 %% Copyright 1994-2011 Patrick W Daly
  % ===============================================================
  % IMPORTANT NOTICE:
