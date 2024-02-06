@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: signature_ai.aux
+The style file: apalike.bst
+Database file #1: refs.bib
+Warning--entry type for "zanaga_daniele_2021_5571936" isn't style-file defined
+--line 1121 of file refs.bib
+Warning--empty journal in europeanenvironmentagency1990
+Warning--empty journal in https://doi.org/10.48550/arxiv.1905.11946
+You've used 45 entries,
+            1935 wiz_defined-function locations,
+            746 strings with 13634 characters,
+and the built_in function-call counts, 21455 in all, are:
+= -- 2046
+> -- 1169
+< -- 28
++ -- 432
+- -- 416
+* -- 1904
+:= -- 3715
+add.period$ -- 139
+call.type$ -- 45
+change.case$ -- 426
+chr.to.int$ -- 43
+cite$ -- 47
+duplicate$ -- 727
+empty$ -- 1315
+format.name$ -- 481
+if$ -- 4158
+int.to.chr$ -- 3
+int.to.str$ -- 0
+missing$ -- 48
+newline$ -- 228
+num.names$ -- 135
+pop$ -- 394
+preamble$ -- 1
+purify$ -- 431
+quote$ -- 0
+skip$ -- 568
+stack$ -- 0
+substring$ -- 1407
+swap$ -- 129
+text.length$ -- 12
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 260
+warning$ -- 2
+while$ -- 163
+width$ -- 0
+write$ -- 583
+(There were 3 warnings)

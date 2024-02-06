@@ -1,0 +1,228 @@
+\begin{thebibliography}{}
+
+\bibitem[Arribas-Bel and Fleischmann, 2022]{dab_mf_2021a}
+Arribas-Bel, D. and Fleischmann, M. (2022).
+\newblock Spatial signatures - understanding (urban) spaces through form and function.
+\newblock {\em Habitat International}, 128:102641.
+
+\bibitem[Brown et~al., 2022]{brown2022dynamic}
+Brown, C.~F., Brumby, S.~P., Guzder-Williams, B., Birch, T., Hyde, S.~B., Mazzariello, J., Czerwinski, W., Pasquarella, V.~J., Haertel, R., Ilyushchenko, S., et~al. (2022).
+\newblock Dynamic world, near real-time global 10 m land use land cover mapping.
+\newblock {\em Scientific Data}, 9(1):1--17.
+
+\bibitem[Cliff and Ord, 1981]{cliff1981spatial}
+Cliff, A.~D. and Ord, J.~K. (1981).
+\newblock {\em Spatial processes: models \& applications}.
+\newblock Taylor \& Francis.
+
+\bibitem[Cohen, 1960]{cohen1960coefficient}
+Cohen, J. (1960).
+\newblock A coefficient of agreement for nominal scales.
+\newblock {\em Educational and psychological measurement}, 20(1):37--46.
+
+\bibitem[Corbane et~al., 2020]{CORBANE2020105737}
+Corbane, C., Politis, P., Kempeneers, P., Simonetti, D., Soille, P., Burger, A., Pesaresi, M., Sabo, F., Syrris, V., and Kemper, T. (2020).
+\newblock A global cloud free pixel- based image composite from sentinel-2 data.
+\newblock {\em Data in Brief}, 31:105737.
+
+\bibitem[Deng et~al., 2009]{deng2009imagenet}
+Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., and Fei-Fei, L. (2009).
+\newblock Imagenet: A large-scale hierarchical image database.
+\newblock In {\em 2009 IEEE conference on computer vision and pattern recognition}, pages 248--255. Ieee.
+
+\bibitem[Dijkstra et~al., 2021]{DIJKSTRA2021103312}
+Dijkstra, L., Florczyk, A.~J., Freire, S., Kemper, T., Melchiorri, M., Pesaresi, M., and Schiavina, M. (2021).
+\newblock Applying the degree of urbanisation to the globe: A new harmonised definition reveals a different picture of global urbanisation.
+\newblock {\em Journal of Urban Economics}, 125:103312.
+\newblock Delineation of Urban Areas.
+
+\bibitem[{European Environment Agency}, 1990]{europeanenvironmentagency1990}
+{European Environment Agency} (1990).
+\newblock {CORINE} {Land} {Cover}.
+\newblock pages 1--163.
+
+\bibitem[Fleischmann and Arribas-Bel, 2022]{fleischmann2022geographical}
+Fleischmann, M. and Arribas-Bel, D. (2022).
+\newblock Geographical characterisation of british urban form and function using the spatial signatures framework.
+\newblock {\em Scientific Data}, 9(546):1--15.
+
+\bibitem[He et~al., 2016]{he2016deep}
+He, K., Zhang, X., Ren, S., and Sun, J. (2016).
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and pattern recognition}, pages 770--778.
+
+\bibitem[Karra et~al., 2021]{karra2021global}
+Karra, K., Kontgis, C., Statman-Weil, Z., Mazzariello, J.~C., Mathis, M., and Brumby, S.~P. (2021).
+\newblock Global land use/land cover with sentinel 2 and deep learning.
+\newblock In {\em 2021 IEEE international geoscience and remote sensing symposium IGARSS}, pages 4704--4707. IEEE.
+
+\bibitem[Ke et~al., 2017]{ke2017lightgbm}
+Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., and Liu, T.-Y. (2017).
+\newblock Lightgbm: A highly efficient gradient boosting decision tree.
+\newblock {\em Advances in neural information processing systems}, 30.
+
+\bibitem[Ke and Quackenbush, 2011]{ke2011review}
+Ke, Y. and Quackenbush, L.~J. (2011).
+\newblock A review of methods for automatic individual tree-crown detection and delineation from passive remote sensing.
+\newblock {\em International Journal of Remote Sensing}, 32(17):4725--4747.
+
+\bibitem[Koc et~al., 2017]{koc2017mapping}
+Koc, C.~B., Osmond, P., Peters, A., and Irger, M. (2017).
+\newblock Mapping local climate zones for urban morphology classification based on airborne remote sensing data.
+\newblock In {\em 2017 Joint Urban Remote Sensing Event (JURSE)}, pages 1--4. IEEE.
+
+\bibitem[Kuffer et~al., 2021]{kuffer2021mapping}
+Kuffer, M., Grippa, T., Persello, C., Taubenb{\"o}ck, H., Pfeffer, K., and Sliuzas, R. (2021).
+\newblock Mapping the morphology of urban deprivation: The role of remote sensing for developing a global slum repository.
+\newblock {\em Urban Remote Sensing: Monitoring, Synthesis, and Modeling in the Urban Environment}, pages 305--323.
+
+\bibitem[Kuffer et~al., 2016]{slums2016}
+Kuffer, M., Pfeffer, K., and Sliuzas, R. (2016).
+\newblock Slums from space - 15 years of slum mapping using remote sensing.
+\newblock {\em Remote Sensing}, 8(6):455.
+
+\bibitem[Lai et~al., 2021]{lai2021deep}
+Lai, F., Sharma, A., Liu, X., and Yang, X. (2021).
+\newblock Deep learning for urban and landscape mapping from remotely sensed imagery.
+\newblock {\em Urban Remote Sensing: Monitoring, Synthesis, and Modeling in the Urban Environment}, pages 153--174.
+
+\bibitem[LeCun et~al., 2015]{lecun2015}
+LeCun, Y., Bengio, Y., and Hinton, G. (2015).
+\newblock Deep learning.
+\newblock {\em nature}, 521(7553):436--444.
+
+\bibitem[Liu and Shi, 2020]{liu2020local}
+Liu, S. and Shi, Q. (2020).
+\newblock Local climate zone mapping as remote sensing scene classification using deep learning: A case study of metropolitan china.
+\newblock {\em ISPRS Journal of Photogrammetry and Remote Sensing}, 164:229--242.
+
+\bibitem[Longley, 2002]{longley2002geographical}
+Longley, P.~A. (2002).
+\newblock Geographical information systems: will developments in urban remote sensing and gis lead to 'better' urban geography?
+\newblock {\em Progress in Human Geography}, 26(2):231--239.
+
+\bibitem[Microsoft, 2019]{microsoft2019}
+Microsoft (2019).
+\newblock {USBuildingFootprints}.
+\newblock \url{https://github.com/Microsoft/USBuildingFootprints}.
+
+\bibitem[Openshaw, 1981]{openshaw1981modifiable}
+Openshaw, S. (1981).
+\newblock The modifiable areal unit problem.
+\newblock {\em Quantitative geography: A British view}, pages 60--69.
+
+\bibitem[Othman et~al., 2017]{othman2017domain}
+Othman, E., Bazi, Y., Melgani, F., Alhichri, H., Alajlan, N., and Zuair, M. (2017).
+\newblock Domain adaptation network for cross-scene classification.
+\newblock {\em IEEE Transactions on Geoscience and Remote Sensing}, 55(8):4441--4456.
+
+\bibitem[Pedregosa et~al., 2011]{pedregosa2011scikit}
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., et~al. (2011).
+\newblock Scikit-learn: Machine learning in python.
+\newblock {\em the Journal of machine Learning research}, 12:2825--2830.
+
+\bibitem[Qiu et~al., 2020]{qiu2020fusing}
+Qiu, C., Mou, L., Schmitt, M., and Zhu, X.~X. (2020).
+\newblock Fusing multiseasonal sentinel-2 imagery for urban land cover classification with multibranch residual convolutional neural networks.
+\newblock {\em IEEE Geoscience and Remote Sensing Letters}, 17(10):1787--1791.
+
+\bibitem[Rashed and J{\"u}rgens, 2010]{rashed2010remote}
+Rashed, T. and J{\"u}rgens, C. (2010).
+\newblock {\em Remote sensing of urban and suburban areas}, volume~10.
+\newblock Springer Science \& Business Media.
+
+\bibitem[Ronneberger et~al., 2015]{ronneberger2015u}
+Ronneberger, O., Fischer, P., and Brox, T. (2015).
+\newblock U-net: Convolutional networks for biomedical image segmentation.
+\newblock In {\em International Conference on Medical image computing and computer-assisted intervention}, pages 234--241. Springer.
+
+\bibitem[Russakovsky et~al., 2015]{ILSVRC15}
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z., Karpathy, A., Khosla, A., Bernstein, M., Berg, A.~C., and Fei-Fei, L. (2015).
+\newblock {ImageNet Large Scale Visual Recognition Challenge}.
+\newblock {\em International Journal of Computer Vision (IJCV)}, 115(3):211--252.
+
+\bibitem[Sharma et~al., 2017]{sharma2017patch}
+Sharma, A., Liu, X., Yang, X., and Shi, D. (2017).
+\newblock A patch-based convolutional neural network for remote sensing image classification.
+\newblock {\em Neural Networks}, 95:19--28.
+
+\bibitem[Simonyan and Zisserman, 2014]{simonyan2014very}
+Simonyan, K. and Zisserman, A. (2014).
+\newblock Very deep convolutional networks for large-scale image recognition.
+\newblock {\em arXiv preprint arXiv:1409.1556}.
+
+\bibitem[Srivastava et~al., 2019]{srivastava2019understanding}
+Srivastava, S., Vargas-Munoz, J.~E., and Tuia, D. (2019).
+\newblock Understanding urban landuse from the above and ground perspectives: A deep learning, multimodal solution.
+\newblock {\em Remote sensing of environment}, 228:129--143.
+
+\bibitem[Stewart and Oke, 2012]{stewart2012}
+Stewart, I.~D. and Oke, T.~R. (2012).
+\newblock Local {{Climate Zones}} for {{Urban Temperature Studies}}.
+\newblock {\em Bulletin of the American Meteorological Society}, 93(12):1879--1900.
+
+\bibitem[Tan and Le, 2019]{https://doi.org/10.48550/arxiv.1905.11946}
+Tan, M. and Le, Q.~V. (2019).
+\newblock Efficientnet: Rethinking model scaling for convolutional neural networks.
+
+\bibitem[Taubenb{\"o}ck et~al., 2020]{taubenbock2020}
+Taubenb{\"o}ck, H., Debray, H., Qiu, C., Schmitt, M., Wang, Y., and Zhu, X. (2020).
+\newblock Seven city types representing morphologic configurations of cities across the globe.
+\newblock {\em Cities}, 105:102814.
+
+\bibitem[Venter et~al., 2022]{venter2022global}
+Venter, Z.~S., Barton, D.~N., Chakraborty, T., Simensen, T., and Singh, G. (2022).
+\newblock Global 10 m land use land cover datasets: A comparison of dynamic world, world cover and esri land cover.
+\newblock {\em Remote Sensing}, 14(16):4101.
+
+\bibitem[Wang et~al., 2022a]{04f9ab8f6c714010ac39b58230f59d85}
+Wang, J., Fleischmann, M., Venerandi, A., Kuffer, M., and Porta, S. (2022a).
+\newblock {\em Earth observation + morphometrics: towards a systematic understanding of cities in challenging contexts}, pages 363--370.
+\newblock University of Strathclyde.
+\newblock 28th International Seminar on Urban Form, ISUF 2021, ISUF 2021 ; Conference date: 29-06-2021 Through 03-07-2021.
+
+\bibitem[Wang et~al., 2022b]{wang2022knowledge}
+Wang, J., Georganos, S., Kuffer, M., Abascal, A., and Vanhuysse, S. (2022b).
+\newblock On the knowledge gain of urban morphology from space.
+\newblock {\em Computers, Environment and Urban Systems}, 95:101831.
+
+\bibitem[Wang et~al., 2018a]{wang2018multi}
+Wang, L., Xu, X., Dong, H., Gui, R., and Pu, F. (2018a).
+\newblock Multi-pixel simultaneous classification of polsar image using convolutional neural networks.
+\newblock {\em Sensors}, 18(3):769.
+
+\bibitem[Wang et~al., 2018b]{wang2018mapping}
+Wang, R., Ren, C., Xu, Y., Lau, K. K.-L., and Shi, Y. (2018b).
+\newblock Mapping the local climate zones of urban areas by gis-based and wudapt methods: A case study of hong kong.
+\newblock {\em Urban climate}, 24:567--576.
+
+\bibitem[Weng and Quattrochi, 2018]{weng2018urban}
+Weng, Q. and Quattrochi, D.~A. (2018).
+\newblock {\em Urban remote sensing}.
+\newblock CRC press.
+
+\bibitem[Yang, 2021]{yang2021urban}
+Yang, X.~X. (2021).
+\newblock {\em Urban remote sensing: Monitoring, synthesis and modeling in the urban environment}.
+\newblock John Wiley \& Sons.
+
+\bibitem[Zanaga et~al., 2021]{zanaga_daniele_2021_5571936}
+Zanaga, D., Van De~Kerchove, R., De~Keersmaecker, W., Souverijns, N., Brockmann, C., Quast, R., Wevers, J., Grosu, A., Paccini, A., Vergnaud, S., Cartus, O., Santoro, M., Fritz, S., Georgieva, I., Lesiv, M., Carter, S., Herold, M., Li, L., Tsendbazar, N.-E., Ramoino, F., and Arino, O. (2021).
+\newblock Esa worldcover 10 m 2020 v100.
+
+\bibitem[Zhou et~al., 2022]{zhou2022deep}
+Zhou, L., Shao, Z., Wang, S., and Huang, X. (2022).
+\newblock Deep learning-based local climate zone classification using sentinel-1 sar and sentinel-2 multispectral imagery.
+\newblock {\em Geo-spatial Information Science}, pages 1--16.
+
+\bibitem[Zhou et~al., 2021]{zhou2021parcel}
+Zhou, Y., Wei, T., Zhu, X., and Collin, M. (2021).
+\newblock A parcel-based deep-learning classification to map local climate zones from sentinel-2 images.
+\newblock {\em IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing}, 14:4194--4204.
+
+\bibitem[Zhu et~al., 2022]{zhu2022urban}
+Zhu, X.~X., Qiu, C., Hu, J., Shi, Y., Wang, Y., Schmitt, M., and Taubenb{\"o}ck, H. (2022).
+\newblock The urban morphology on our planet--global perspectives from space.
+\newblock {\em Remote Sensing of Environment}, 269:112794.
+
+\end{thebibliography}
