@@ -1,7 +1,8 @@
 \section{Results} % 500 words in total
 \label{sec:results}
-
+\subsection*{Global accuracy}
 % Overview of numbers
+% global accuracy
 Global accuracy is shown in Table \ref{tab:global_accuracy}. It may seem that the
 results are underwhelming but taking a closer look, it is true only for some models,
 usually using smaller chip sizes and simpler architecture. Out of 60 tested models,
@@ -52,6 +53,7 @@ tested in this study. Values higher than 0.5 are highlighted in italic, values h
 0.6 in bold and a value over 0.7 in bold italic.}
 \end{table}
 
+\subsection*{Within-class accuracy}
 % figure 1 - within class accuracy per model
 Within-class accuracy by the model can be seen in Figure \ref{fig:wc_accuracy_x_model} (a
 sister figure where scores are grouped by signature rather than by model can be found in
@@ -86,6 +88,8 @@ Appendix \ref*{sec:appendixC}.
     \label{fig:wc_accuracy_x_model}
 \end{figure}
 
+\subsection*{Regression outputs for global performance metrics}
+% global non-spatial performance regression
 Whilst plotting the accuracy is a way to build an intuition about the performance of
 individual options, it does not quantify their effects. The linear regressions shown in
 tables \ref{tab:non_sp_reg} and \ref{tab:non_sp_reg_wc} provide better insight. The
@@ -139,6 +143,8 @@ N.                                                &     60     &           60   
     the 1\%, 5\%, 10\% level are noted with ***, **, and *, respectively.}
 \end{table}
 
+\subsection*{Regression outputs for within-class accuracy}
+% within class accuracy regression
 Table \ref{tab:non_sp_reg_wc} then looks again at the within-class accuracy explaining
 what we have seen in Figure \ref{fig:wc_accuracy_x_model}.
 Multi-output regression consistently outperforms both baseline image classification and
@@ -152,7 +158,7 @@ due to the higher amount of \textit{transition land} between class core areas.
 \begin{table}
 \begin{tabular}{lccc}
 \toprule
-{}  &       \multicolumn{3}{c}{Within-Class Accuracy} \\
+{Within-Class Accuracy}  & Baseline & Absolute imb. & Relative imb. \\
 \midrule
 Intercept                                         &   0.1866*** &     -0.0237 &    0.0595** \\
                                                   &    (0.0308) &    (0.0311) &    (0.0303) \\
@@ -222,6 +228,8 @@ N.                                                &      720    &      720    & 
 %       \end{figure}
 % DAB: for space constraints, we have decided to drop it for now
 
+\subsection*{Regression outputs for spatial performance metrics}
+% spatial performance regression
 The regression outputs explaining differences in the spatial pattern between observed
 and predicted values measured by the Join Counts statistic offer another - spatially
 explicit - perspective on the performance of tested model configurations. As such, it
@@ -239,7 +247,7 @@ while sparser signature types like \textit{Open Sprawl} and \textit{Urban Buffer
 significance when using a union of weights.
 
 
-% table 2 spatial,
+% table 2 spatial
 
 \begin{table}
         \begin{tabular}{lcccc}
