@@ -29,15 +29,33 @@ Green urban areas, Sport and leisure facilities, Industrial or commercial units,
 and rail networks and associated land, Port areas}. A similar situation arises with recently
 released global LULC datasets. European Space Agency's WorldCover project distinguishes
 11 classes, of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
-Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt
-areas \citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not
-very suited for research applications focusing on urban environments. Spatial signatures
-invert this ratio as they are primarily classifying urban space. That is one of the main
-reasons for the existence of spatial signatures. There are very few data products that
-focus on the classification of the internal organisation of cities as a combination of the
-physical form and the function of space. Even if they do, they are often limited by
-detail, granularity, or the geographical extent of the area they cover. Spatial signatures
-are designed to overcome these limitations.
+Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt areas
+\citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not very
+suited for research applications focusing on urban environments. Spatial signatures
+invert this ratio as they are primarily classifying urban space as illustrated visually
+in Figure \ref{fig:lulc}. That is one of the main reasons for the existence of spatial
+signatures. There are very few data products that focus on the classification of the
+internal organisation of cities as a combination of the physical form and the function
+of space. Even if they do, they are often limited by detail, granularity, or the
+geographical extent of the area they cover. Spatial signatures are designed to overcome
+these limitations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{fig/lulc.png}
+    \caption{\footnotesize A visual comparison between established LULC products and
+    spatial signatures. Panel a) shows the WorldCover classification by ESA
+    \citep{zanaga_daniele_2021_5571936}, panel b) shows the  CORINE land cover
+    classification \citep{europeanenvironmentagency1990}, panel c shows the  Copernicus
+    Urban Atlas \citep{urban_atlas}, and panel d shows the British spatial signatures
+    \citep{fleischmann2022geographical}. The latter is the focus of this paper. The
+    direct comparison showcases the major difference between the conceptualisation of
+    urban areas between different classifications, with traditional LULC providing only
+    a mimimal disticntion between types of urban development, whilst spatial signatures
+    provide a much more nuanced view, allowing a different type of understanding of the
+    environment.}
+    \label{fig:lulc}
+\end{figure}
 
 The focus on urban environments is shared with the notion of \textit{urban functional zones}
 \citep{lu2022urban, izzo2022classification, jing2022method},
@@ -505,6 +523,20 @@ the nearest neighbour with those defined by contiguity ($W_{union}$).
 Our metric of interest is then the error (i.e., absolute
 value of the difference) between this proportion for the model of interest and
 that of the observed labels.
+
+The whole predictive pipeline is illustrated in Figure \ref{fig:architecture}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{fig/signature_ai_architecture.pdf}
+    \caption{Simple diagram showcasing the top-level architecture of the proposed
+    predictive pipeline with all the tested options per each step. Chips are used to
+    re-train pre-trained EfficientNetB4 CNN with custom top layers depending on the type
+    of the chips. The resulting probabilities are optionally used with a calculation of
+    spatial lag and all (original or original and lagged) probabilities are used to
+    predict the signature type.}
+    \label{fig:architecture}
+\end{figure}
 
 \subsubsection{Summarizing experiments}
 
