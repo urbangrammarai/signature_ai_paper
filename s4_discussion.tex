@@ -14,7 +14,10 @@ information on
 the geographical relationship between neighbouring signature types, MOR directly
 captures these as chips often cross multiple signature types. This behaviour is unique
 to geographical problems. Aspatial image classification tasks are not able to encode
-\textit{distance} between two types in this way.
+\textit{distance} between two types in this way. Still, sliding significantly improves the
+performance when considering the global Macro F1 score and within-class accuracy, making
+it a viable option if we want to stick to the traditional image classification approach.
+
 %% Chip size dimension
 The second dimension is the chip size. Except for Join Counts statistics, we see a positive
 relationship between model performance and the extent our chips cover. This is an expected
@@ -22,7 +25,9 @@ outcome as the larger the chip is, the more information it contains. However, we
 blindly follow \textit{larger is better} logic as signature types are composed of
 granular geometries, and we see a sampling issue when the chip size grows. While that
 can be partially mitigated by using MOR for single-class prediction, it needs to be considered in model
-architecture.
+architecture. The results do not suggest that one of the options is the \textit{sweet spot}
+of the balance between sample size and amount of within-a-chip data.
+
 %% Modelling dimension
 Another dimension looks at the value of modelling on top of probabilities coming from
 neural networks. The results indicate that there is value in the modelling step as the

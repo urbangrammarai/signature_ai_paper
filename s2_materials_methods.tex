@@ -43,7 +43,7 @@ these limitations.
 \begin{figure}
     \centering
     \includegraphics[width=1.0\linewidth]{fig/lulc.png}
-    \caption{\footnotesize A visual comparison between established LULC products and
+    \caption{A visual comparison between established LULC products and
     spatial signatures. Panel a) shows the WorldCover classification by ESA
     \citep{zanaga_daniele_2021_5571936}, panel b) shows the  CORINE land cover
     classification \citep{europeanenvironmentagency1990}, panel c shows the  Copernicus
@@ -75,18 +75,29 @@ Voronoi tessellation based on building footprint polygons. The resulting spatial
 has adaptive granularity reflecting the scale of each urban pattern. The
 second is the selection of characters describing each ETC. They measure form and function,
 primarily urban phenomena and mostly omit environmental aspects focusing on land
-cover patterns. However, spatial signatures depend on a wide range of data inputs that
+cover patterns. The resulting characterisation of space forms the basis for a cluster
+analysis used to derive spatial signatures, as illustrated in Figure \ref{fig:sig_workflow}.  However,
+spatial signatures depend on a wide range of data inputs that
 are being updated at a variable rate. Some in monthly snapshots but others,
 based on census data, only every ten years. Given this heterogeneity,
 it is nearly impossible to provide a consistent yearly time series of their evolution.
 This is where remote sensing based on satellite imagery may help.
+
+\begin{figure}
+    \centering
+    \includegraphics[height=8cm]{fig/workflow.pdf}
+    \caption{Diagram reproduced from \cite{fleischmann2022geographical} illustrating the sequential steps leading to the delineation of spatial signatures. From a series of enclosing components, to enclosures, enclosed tessellation (ET), the addition of form and function characters to ET cells, and the development of spatial signatures.}
+    \label{fig:sig_workflow}
+\end{figure}
 
 % We may want to add a figure explaining ETCs here.
 
 As presented in \cite{fleischmann2022geographical}, British spatial signatures are one
 application of the concept of spatial signatures in
 the context of Great Britain. It divides the space into the 16 data-driven classes
-(Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Out of these 16
+(Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Their interpretative
+profiles providing a deeper insight into their nature, as reported in the original
+paper, are attached as an Appendix \ref*{sec:appendixD} for the convenience of a reader. Out of these 16
 classes, nine are entirely urban, four are peripheral, and only three classify natural spaces,
 inverting the ratio of built vs unbuilt classes common in LULC. However, out
 of these 16 classes, some are very rare, and it would not be feasible to attempt to
@@ -335,7 +346,8 @@ it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40
 probability modelling training, 10\% for probability modelling validation) and apply
 sliding within each part to avoid any pixels being shared among chips from different
 sets. Subdivision into the four parts is done within each signature geometry to avoid
-potential geographical bias.
+potential geographical bias. The details of the splitting method are available in the appendix \ref*{sec:appendixE}.
+
 
 \begin{figure}
     \centering
