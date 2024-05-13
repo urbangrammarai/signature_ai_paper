@@ -7,45 +7,45 @@ Warning--entry type for "zanaga_daniele_2021_5571936" isn't style-file defined
 --line 1121 of file refs.bib
 Warning--empty journal in europeanenvironmentagency1990
 Warning--empty journal in https://doi.org/10.48550/arxiv.1905.11946
-You've used 45 entries,
+You've used 49 entries,
             1935 wiz_defined-function locations,
-            746 strings with 13634 characters,
-and the built_in function-call counts, 21455 in all, are:
-= -- 2046
-> -- 1169
-< -- 28
-+ -- 432
-- -- 416
-* -- 1904
-:= -- 3715
-add.period$ -- 139
-call.type$ -- 45
-change.case$ -- 426
-chr.to.int$ -- 43
-cite$ -- 47
-duplicate$ -- 727
-empty$ -- 1315
-format.name$ -- 481
-if$ -- 4158
+            768 strings with 14423 characters,
+and the built_in function-call counts, 23076 in all, are:
+= -- 2200
+> -- 1251
+< -- 29
++ -- 462
+- -- 444
+* -- 2054
+:= -- 4005
+add.period$ -- 150
+call.type$ -- 49
+change.case$ -- 460
+chr.to.int$ -- 47
+cite$ -- 51
+duplicate$ -- 779
+empty$ -- 1418
+format.name$ -- 515
+if$ -- 4463
 int.to.chr$ -- 3
 int.to.str$ -- 0
-missing$ -- 48
-newline$ -- 228
-num.names$ -- 135
-pop$ -- 394
+missing$ -- 51
+newline$ -- 247
+num.names$ -- 147
+pop$ -- 420
 preamble$ -- 1
-purify$ -- 431
+purify$ -- 465
 quote$ -- 0
-skip$ -- 568
+skip$ -- 607
 stack$ -- 0
-substring$ -- 1407
-swap$ -- 129
+substring$ -- 1521
+swap$ -- 132
 text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 260
+type$ -- 284
 warning$ -- 2
-while$ -- 163
+while$ -- 175
 width$ -- 0
-write$ -- 583
+write$ -- 632
 (There were 3 warnings)

@@ -29,10 +29,43 @@ Green urban areas, Sport and leisure facilities, Industrial or commercial units,
 and rail networks and associated land, Port areas}. A similar situation arises with recently
 released global LULC datasets. European Space Agency's WorldCover project distinguishes
 11 classes, of which one is urban (Built-up) \citep{zanaga_daniele_2021_5571936}. Esri's
-Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt
-areas \citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not
-very suited for research applications focusing on urban environments. Spatial signatures
-invert this ratio as they are primarily classifying urban space.
+Land cover has 9 classes: one is \textit{Built Area}, and the rest covers unbuilt areas
+\citep{karra2021global}. This ratio of built vs unbuilt classes is typical but not very
+suited for research applications focusing on urban environments. Spatial signatures
+invert this ratio as they are primarily classifying urban space as illustrated visually
+in Figure \ref{fig:lulc}. That is one of the main reasons for the existence of spatial
+signatures. There are very few data products that focus on the classification of the
+internal organisation of cities as a combination of the physical form and the function
+of space. Even if they do, they are often limited by detail, granularity, or the
+geographical extent of the area they cover. Spatial signatures are designed to overcome
+these limitations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{fig/lulc.png}
+    \caption{A visual comparison between established LULC products and
+    spatial signatures. Panel a) shows the WorldCover classification by ESA
+    \citep{zanaga_daniele_2021_5571936}, panel b) shows the  CORINE land cover
+    classification \citep{europeanenvironmentagency1990}, panel c shows the  Copernicus
+    Urban Atlas \citep{urban_atlas}, and panel d shows the British spatial signatures
+    \citep{fleischmann2022geographical}. The latter is the focus of this paper. The
+    direct comparison showcases the major difference between the conceptualisation of
+    urban areas between different classifications, with traditional LULC providing only
+    a mimimal disticntion between types of urban development, whilst spatial signatures
+    provide a much more nuanced view, allowing a different type of understanding of the
+    environment.}
+    \label{fig:lulc}
+\end{figure}
+
+The focus on urban environments is shared with the notion of \textit{urban functional zones}
+\citep{lu2022urban, izzo2022classification, jing2022method},
+though the latter is more focused on the function of urban space, while spatial signatures
+explicitly capture also form, leading to a set of categories that go beyond "residential",
+"industrial", or "commercial" categories, and provide a more nuanced characterization of space.
+
+As illustrated in \cite{dab_mf_2021a}, spatial signatures are by far not limited to the context of
+Great Britain or similarly data-rich countries. The method presented in this paper is expected
+to apply to any area where spatial signature classification is available or can be generated.
 
 There are two main concepts embedded in spatial signatures delivering urban-focused
 classification. The first one is the spatial unit called the enclosed tessellation cell
@@ -42,18 +75,29 @@ Voronoi tessellation based on building footprint polygons. The resulting spatial
 has adaptive granularity reflecting the scale of each urban pattern. The
 second is the selection of characters describing each ETC. They measure form and function,
 primarily urban phenomena and mostly omit environmental aspects focusing on land
-cover patterns. However, spatial signatures depend on a wide range of data inputs that
+cover patterns. The resulting characterisation of space forms the basis for a cluster
+analysis used to derive spatial signatures, as illustrated in Figure \ref{fig:sig_workflow}.  However,
+spatial signatures depend on a wide range of data inputs that
 are being updated at a variable rate. Some in monthly snapshots but others,
 based on census data, only every ten years. Given this heterogeneity,
 it is nearly impossible to provide a consistent yearly time series of their evolution.
 This is where remote sensing based on satellite imagery may help.
+
+\begin{figure}
+    \centering
+    \includegraphics[height=8cm]{fig/workflow.pdf}
+    \caption{Diagram reproduced from \cite{fleischmann2022geographical} illustrating the sequential steps leading to the delineation of spatial signatures. From a series of enclosing components, to enclosures, enclosed tessellation (ET), the addition of form and function characters to ET cells, and the development of spatial signatures.}
+    \label{fig:sig_workflow}
+\end{figure}
 
 % We may want to add a figure explaining ETCs here.
 
 As presented in \cite{fleischmann2022geographical}, British spatial signatures are one
 application of the concept of spatial signatures in
 the context of Great Britain. It divides the space into the 16 data-driven classes
-(Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Out of these 16
+(Figure \ref{fig:signatures}) listed in Table \ref{tab:sig_types}. Their interpretative
+profiles providing a deeper insight into their nature, as reported in the original
+paper, are attached as an Appendix \ref*{sec:appendixD} for the convenience of a reader. Out of these 16
 classes, nine are entirely urban, four are peripheral, and only three classify natural spaces,
 inverting the ratio of built vs unbuilt classes common in LULC. However, out
 of these 16 classes, some are very rare, and it would not be feasible to attempt to
@@ -302,7 +346,8 @@ it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40
 probability modelling training, 10\% for probability modelling validation) and apply
 sliding within each part to avoid any pixels being shared among chips from different
 sets. Subdivision into the four parts is done within each signature geometry to avoid
-potential geographical bias.
+potential geographical bias. The details of the splitting method are available in the appendix \ref*{sec:appendixE}.
+
 
 \begin{figure}
     \centering
@@ -332,8 +377,10 @@ itself. We assume the effect of geographic choices will largely show similar
 behaviour irrespective of the network architecture. For that reason, throughout
 our experiments we use \texttt{EfficientNetB4} \citep{https://doi.org/10.48550/arxiv.1905.11946}, pre-trained
 on the popular ImageNet dataset \citep{deng2009imagenet}. Appendix \ref*{sec:appendixA} shows a brief comparison of
-several standard neural network architectures and their performance on a subset of data
-to motivate our decision. We then apply transfer learning by re-training the
+several standard neural network architectures with a subset different hyperparameters and their performance on a subset of data
+to motivate our decision. The final selection of hyperparameters and top layers -
+256 neurons using GlobalAveragePooling2D with a learning rate of 0.001 - is based on the global accuracy and models
+(re-)trained on a subset of the data. We then apply transfer learning by re-training the
 top layer of the pre-trained model and replacing it by a
 custom sequence of dense layers described below.
 
@@ -488,6 +535,20 @@ the nearest neighbour with those defined by contiguity ($W_{union}$).
 Our metric of interest is then the error (i.e., absolute
 value of the difference) between this proportion for the model of interest and
 that of the observed labels.
+
+The whole predictive pipeline is illustrated in Figure \ref{fig:architecture}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{fig/signature_ai_architecture.pdf}
+    \caption{Simple diagram showcasing the top-level architecture of the proposed
+    predictive pipeline with all the tested options per each step. Chips are used to
+    re-train pre-trained EfficientNetB4 CNN with custom top layers depending on the type
+    of the chips. The resulting probabilities are optionally used with a calculation of
+    spatial lag and all (original or original and lagged) probabilities are used to
+    predict the signature type.}
+    \label{fig:architecture}
+\end{figure}
 
 \subsubsection{Summarizing experiments}
 

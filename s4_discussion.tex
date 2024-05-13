@@ -14,7 +14,10 @@ information on
 the geographical relationship between neighbouring signature types, MOR directly
 captures these as chips often cross multiple signature types. This behaviour is unique
 to geographical problems. Aspatial image classification tasks are not able to encode
-\textit{distance} between two types in this way.
+\textit{distance} between two types in this way. Still, sliding significantly improves the
+performance when considering the global Macro F1 score and within-class accuracy, making
+it a viable option if we want to stick to the traditional image classification approach.
+
 %% Chip size dimension
 The second dimension is the chip size. Except for Join Counts statistics, we see a positive
 relationship between model performance and the extent our chips cover. This is an expected
@@ -22,7 +25,9 @@ outcome as the larger the chip is, the more information it contains. However, we
 blindly follow \textit{larger is better} logic as signature types are composed of
 granular geometries, and we see a sampling issue when the chip size grows. While that
 can be partially mitigated by using MOR for single-class prediction, it needs to be considered in model
-architecture.
+architecture. The results do not suggest that one of the options is the \textit{sweet spot}
+of the balance between sample size and amount of within-a-chip data.
+
 %% Modelling dimension
 Another dimension looks at the value of modelling on top of probabilities coming from
 neural networks. The results indicate that there is value in the modelling step as the
@@ -95,6 +100,22 @@ pre-trained models than have no sense of adjacency of individual chips/samples. 
 to take a step towards merging GIS expertise with the one that lies in the field of
 AI, often based in departments of computer science rather than geography.
 
+% the extent to which DL can be applied to understand urban environments
+We can also conclude that when properly designed, deep learning models have a lot of potential
+in characterisation of the composition of urban landscapes, if we want to answer the question
+from the introduction. How well they perform varies across different signature types, meaning that
+it will also vary across different types of urban environments when other classification than
+signatures is considered. Nevertheless, we can foresee a variety of applications of
+models of the sort presented and tested in this article. The spatial signatures are based on
+a large number of data sources with limited temporal rate of updates (notably census data, updated every 10 years), making it nearly impossible to do yearly snapshots
+of classification allowing longitudinal studies of evolution of cities. With the classification
+derived from satellite imagery, we can expect to see a much higher temporal resolution,
+easily resulting in annual updates, providing a detailed insight into the dynamics of urban
+expansion, densification and overall change of the shape of cities. This is a potential
+application that is not limited to spatial signatures but can be extended to any
+classification of urban environments.
+
+
 When using openly available satellite data that are currently limited to the resolution
 of 10 meters per pixel at best, and classification focusing on primarily urban landscape,
 our results show both potential and limits. Accuracy is not far from
@@ -103,7 +124,9 @@ data set and possible inclusion of other available bands (like near-infrared) in
 A limitation in decreased performance when it comes to distinction between urban areas that
 are neither too dense nor too sparse but show different form and function profiles. It is
 either a difference that is not visible on imagery (e.g. more driven by function) or a
-limitation of the available resolution and / or training data volume.
+limitation of the available resolution and / or training data volume. This issue could have
+been primarily driven by the nature of spatial signatures as a classification target, and
+it shall be tested on other types of urban classification in the future.
 
 % finish with a very general note on the amount of sat data coming and the need to make
 % sense of it
