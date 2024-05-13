@@ -67,11 +67,16 @@ with this limitation.
 %% Chip sample imbalance
 %% explain why segmentation is not used and tested
 The experiments presented in this article focus on specific target data represented by
-spatial signatures. Because the signatures are designed to capture the structure of urban
-environments, the behaviour of spatial components in the modelling pipeline may differ
-when target data are of a different nature. However, we argue that the
-principle still holds in most cases as the uniqueness of satellite data in image
-classification is well recognised and will generally offer specific solutions unavailable when the task is aspatial.
+spatial signatures. Because the signatures are designed to capture the structure of
+urban environments, the behaviour of spatial components in the modelling pipeline may
+differ when target data are of a different nature. However, we argue that the principle
+still holds in most cases. When the target data has a spatial dimension and a similar
+structure to the spatial signatures (e.g. relatively large patches of a contiguous area
+belonging to a single class), the explicit inclusion of spatial information in the
+modelling pipeline will be beneficial as it directly embeds Tobler's first law of
+geography into the model \citep{tobler1970computer}. This is a unique advantage of
+geographical problems, unavailable when the task is aspatial. While this assumption is
+only theoretical now, we believe that will can be empirically tested in future research.
 
 Since this article is restricted to the use of open data at every step, the best current
 resolution of satellite imagery is 10 meters per pixel, as offered by the Sentinel 2
