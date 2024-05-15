@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2023)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: signature_ai.aux
 The style file: apalike.bst
@@ -7,45 +7,45 @@ Warning--entry type for "zanaga_daniele_2021_5571936" isn't style-file defined
 --line 1121 of file refs.bib
 Warning--empty journal in europeanenvironmentagency1990
 Warning--empty journal in https://doi.org/10.48550/arxiv.1905.11946
-You've used 50 entries,
+You've used 39 entries,
             1935 wiz_defined-function locations,
-            776 strings with 14554 characters,
-and the built_in function-call counts, 23443 in all, are:
-= -- 2238
-> -- 1258
-< -- 30
-+ -- 466
-- -- 446
-* -- 2085
-:= -- 4067
-add.period$ -- 153
-call.type$ -- 50
-change.case$ -- 466
-chr.to.int$ -- 48
-cite$ -- 52
-duplicate$ -- 793
-empty$ -- 1448
-format.name$ -- 518
-if$ -- 4534
-int.to.chr$ -- 3
+            712 strings with 11928 characters,
+and the built_in function-call counts, 17909 in all, are:
+= -- 1714
+> -- 940
+< -- 27
++ -- 347
+- -- 332
+* -- 1575
+:= -- 3109
+add.period$ -- 118
+call.type$ -- 39
+change.case$ -- 354
+chr.to.int$ -- 38
+cite$ -- 41
+duplicate$ -- 614
+empty$ -- 1112
+format.name$ -- 391
+if$ -- 3467
+int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 52
-newline$ -- 252
-num.names$ -- 150
-pop$ -- 423
+missing$ -- 41
+newline$ -- 196
+num.names$ -- 117
+pop$ -- 322
 preamble$ -- 1
-purify$ -- 471
+purify$ -- 359
 quote$ -- 0
-skip$ -- 618
+skip$ -- 486
 stack$ -- 0
-substring$ -- 1560
-swap$ -- 133
-text.length$ -- 12
+substring$ -- 1188
+swap$ -- 104
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 290
+type$ -- 224
 warning$ -- 2
-while$ -- 179
+while$ -- 139
 width$ -- 0
-write$ -- 645
+write$ -- 500
 (There were 3 warnings)

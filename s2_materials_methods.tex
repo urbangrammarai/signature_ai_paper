@@ -234,14 +234,13 @@ is a type A and the neighbouring one a type B, the reality is not that simple, a
 boundaries should be treated more as a fuzzy edge that the hard one. There is very rarely an immediate
 switch between one type of urban environment and the other one. In many cities, two
 types tend to form a transition on the edges where neither is dominant. A situation like
-this is very challenging for the image segmentation as it often looks at delineation of
-water bodies, buildings or other precisely defined patches on an image. The second reason is that the image
-segmentation, having a prediction for individual pixels, would not allow us to use the
-second part of the method and test the effect of spatial lag in modelling efficiently. The only
-way of doing that would be to run the experiment on a pixel level which would be
-extremely computationally expensive, hence challenging to reproduce. We believe that the
-method that can be run on a local machine is in the end, more valuable than the one
-requiring a high-performance cluster.
+this is very challenging for image segmentation as it often looks at delineation of
+water bodies, buildings, or other precisely defined patches on an image. The second
+reason is that the image segmentation, having a prediction for individual pixels, would
+require running the modelling part of the pipeline (see section \ref{sec:arch}) on a
+pixel level which would be extremely computationally expensive, hence challenging to
+reproduce. We believe that the method that can be run on a local machine is in the end,
+more valuable than the one requiring a high-performance cluster.
 
 Overall, our exercise is structured as a comparison of models that attempt to
 predict the 12 spatial signatures entirely from Sentinel 2 imagery. Each model 1) takes
@@ -315,37 +314,38 @@ and a Supplementary Figure \ref{fig:chip_fits}.
 
 % 250 words
 
-As mentioned above, in combination with the signature geometry and
-the requirement to keep chips exclusively within a single class, specific chip sizes may result in
-insufficient training data for some signature types causing imbalance in the training set. Under-sampling like this
-one can be a serious problem that is not unique to spatial modelling. However,
-traditional augmentation methods are not directly applicable here. For example, in an
-image classification problem trying to determine if there is a cat or a dog on an image,
-we add some rotation or zoom to get more versions of
-the same image and expand the set of training data. Neither of these methods is
-applicable to spatial signatures. Zooming would change the scale of the urban environment
-we attempt to capture, while the distinction between some signature types is partially
-in different orientation of streets, rendering rotation-based augmentation counter-productive.
+As mentioned above, in combination with the signature geometry and the requirement to
+keep chips exclusively within a single class, specific chip sizes may result in
+insufficient training data for some signature types causing imbalance in the training
+set. Under-sampling like this one can be a serious problem that is not unique to spatial
+modelling. However, traditional augmentation methods may not be directly applicable here.
+For example, in an image classification problem trying to determine if there is a cat or
+a dog on an image, we add some rotation or zoom to get more versions of the same image
+and expand the set of training data. Neither of these methods is applicable to spatial
+signatures. Zooming would change the scale of the urban environment we attempt to
+capture, while the distinction between some signature types is partially in different
+orientation of streets, rendering rotation-based augmentation conceptually problematic.
 
-At the same time, the geographical and continuous nature of the data at hand
-allows us to use explicitly spatial augmentation techniques such as the one we
-call \textit{sliding}.
-Sliding can be seen as overlapping sampling. Instead of overlaying a grid of chips over
-target geometry and using each pixel only once, we take the initial grid and slide it a
-few pixels horizontally and vertically, as illustrated in Figure \ref{fig:sliding}. If
-the boundary of a slid chip is fully within a signature geometry, it is added to the
-pool of chips to be used. This process is done repeatedly to ensure that each class has
-a reasonable amount of chips to work with, while chips from the large signature types
-are intentionally undersampled to retain a relative balance between the classes in the training data.
+At the same time, the geographical and continuous nature of the data at hand allows us
+to use explicitly spatial augmentation techniques such as the one we call
+\textit{sliding}. Sliding can be seen as overlapping sampling. Instead of overlaying a
+grid of chips over target geometry and using each pixel only once, we take the initial
+grid and slide it a few pixels horizontally and vertically, as illustrated in Figure
+\ref{fig:sliding}. If the boundary of a slid chip is fully within a signature geometry,
+it is added to the pool of chips to be used. This process is done repeatedly to ensure
+that each class has a reasonable amount of chips to work with, while chips from the
+large signature types are intentionally undersampled to retain a relative balance
+between the classes in the training data.
 
-It is to be noted that sliding can cause data leakage (sequences of pixels being
-present in both training and validation) if done before splitting the data into
-training and validation subsets. Therefore, we first create the initial grid, subdivide
-it spatially into four parts (40\% for CNN training, 10\% for CNN validation, 40\% for
-probability modelling training, 10\% for probability modelling validation) and apply
-sliding within each part to avoid any pixels being shared among chips from different
-sets. Subdivision into the four parts is done within each signature geometry to avoid
-potential geographical bias. The details of the splitting method are available in the appendix \ref*{sec:appendixE}.
+It is to be noted that sliding can cause data leakage (sequences of pixels being present
+in both training and validation) if done before splitting the data into training and
+validation subsets. Therefore, we first create the initial grid, subdivide it spatially
+into four parts (40\% for CNN training, 10\% for CNN validation, 40\% for probability
+modelling training, 10\% for probability modelling validation) and apply sliding within
+each part to avoid any pixels being shared among chips from different sets. Subdivision
+into the four parts is done within each signature geometry to avoid potential
+geographical bias. The details of the splitting method are available in the appendix
+\ref*{sec:appendixF}.
 
 
 \begin{figure}
@@ -357,7 +357,7 @@ potential geographical bias. The details of the splitting method are available i
 
 
 \subsubsection{Model architecture}
-
+\label{sec:arch}
 % 500 words
 
 % Overall content of the section
@@ -473,7 +473,7 @@ picking the maximum probability (\texttt{maxprob}), which we only use without th
 probabilities; an ensemble of binary logit models to predict each class
 (\texttt{logite}), then selecting the class with top probability, which we
 also use with the \texttt{wx} variant; and a histogram-based gradient boosted
-classifiers inspired by LightGMB \citep{ke2017lightgbm} and implemented in
+classifiers inspired by LightGBM \citep{ke2017lightgbm} and implemented in
 \texttt{scikit-learn} \citep{pedregosa2011scikit}. This yields our five
 competing models:
 \texttt{maxprob}, \texttt{logite\_baseline}, \texttt{logite\_baseline-wx},

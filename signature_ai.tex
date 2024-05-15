@@ -117,23 +117,24 @@
 \end{center}
 %
 \begin{abstract}
-    This paper advances our understanding of the extent to which conventional deep
-    learning methods can be applied to satellite imagery to capture the composition of
-    urbanised landscapes. The building blocks that make up those -the activities and
-    agents conceptualised as urban function and the structure that supports them
-    conceptualised as urban form- can be arranged in many ways. This paper relies on the
-    concept of “spatial signatures”, a characterisation of space dependent on data
-    released at a variable rate - an issue that could be resolved by remote sensing and
-    satellite imagery. Using Sentinel-2 imagery, we explore this pathway within
-    convolutional neural networks and predictive modelling trained to identify spatial
-    signatures across Great Britain. While deep learning is established, its application
-    has often ignored the geographical nature of the images. Our focus is to develop a
-    performant model but also to learn about the effect of spatially explicit methods of
-    doing so. The results indicate that classification of urban environments is more
-    challenging than non-urban. However, when applying spatially explicit methods the
-    accuracy is competitive with established models. This suggests that satellite
-    imagery reflect form and function in greater detail than is usually present in
-    available remote sensing products.
+    This paper explores how can geographical dimension be incorporated into deep
+    learning designed to understand the composition of urban landscapes based on
+    Sentinel 2 satellite imagery. Compared to standard computer vision, satellite
+    imagery is unique as images sampled from the data form a continuous array, rather
+    than being fully independent. We argue that the spatial configuration of the images
+    is as important as the content of each image when attempting to capture a pattern
+    that reflects the structure of the urban environment. We propose a series of
+    approaches explicitly incorporating spatial dimension in the predictive pipeline
+    based on the EfficientNetB4 convolutional neural network (CNN) and experimentally
+    test their effect on model performance. The experiments in this study cover the
+    scale of the sampled area, the effect of spatial augmentation, and the role of
+    modelling (logit ensemble and histogram-based gradient-boosted classifiers) with and
+    without the spatial context on the outputs of the neural network-generated vector of
+    probabilities while trying to predict spatial signatures, a classification of
+    primarily urban landscape based on form and function. The results suggest that
+    certain ways of embedding spatial information, especially in the modelling step,
+    consistently significantly improve the prediction accuracy and shall be considered
+    on top of standard CNNs.
 \end{abstract}
 %
 \vspace{1.5ex}
@@ -168,7 +169,7 @@ Key words: \hskip.25em spatial signatures, classification, remote sensing, artif
 \section*{Data and code availability statement}
 
 All the data and code will be available on a public repository with DOI upon acceptance
-of the article to ensure anonymity of a double-blind review.
+of the article to ensure the anonymity of a double-blind review.
 
 \clearpage
 

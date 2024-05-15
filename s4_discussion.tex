@@ -4,19 +4,18 @@
 % Summarise results
 The results can be summarised in four dimensions.
 %% Architecture dimension (BIC, SIC, MOR)
-The first dimension tested is the way of chip sampling and related CNN architecture.
-It seems clear that the baseline image classification is limited, and either the
-sliding approach to minimise the disbalance of sample size per class or multi-output
-regression shall be preferred in a use case like signature detection. Of the two,
-multi-output regression even seems to be better, and one of the reasons could be its
-ability to implicitly capture co-location. While BIC and SIC-based models have no
-information on
-the geographical relationship between neighbouring signature types, MOR directly
-captures these as chips often cross multiple signature types. This behaviour is unique
-to geographical problems. Aspatial image classification tasks are not able to encode
-\textit{distance} between two types in this way. Still, sliding significantly improves the
-performance when considering the global Macro F1 score and within-class accuracy, making
-it a viable option if we want to stick to the traditional image classification approach.
+The first dimension tested is the way of chip sampling and related CNN architecture. It
+seems clear that the baseline image classification is limited. However, the sliding
+approach does not come with significant performance benefits compared to multi-output
+regression, which shall be preferred in a use case like signature detection.
+Multi-output regression seems to be better due to its ability to implicitly capture
+co-location. While BIC and SIC-based models have no information on the geographical
+relationship between neighbouring signature types, MOR directly captures these as chips
+often cross multiple signature types. This behaviour is unique to geographical problems.
+Aspatial image classification tasks are not able to encode \textit{distance} between two
+types in this way. Still, sliding significantly improves the performance when
+considering the global Macro F1 score and within-class accuracy, making it a viable
+option if we want to stick to the traditional image classification approach.
 
 %% Chip size dimension
 The second dimension is the chip size. Except for Join Counts statistics, we see a positive
@@ -101,7 +100,7 @@ Is geography relevant in image classification problems, then? The results presen
 above suggest so. An introduction of explicit geographical methods to improve image
 classification models based on spatial imagery proves to be beneficial and makes use of what a
 unique - spatial - dimension offers. It requires moving beyond traditionally used
-pre-trained models than have no sense of adjacency of individual chips/samples. We need
+pre-trained models that have no sense of adjacency of individual chips/samples. We need
 to take a step towards merging GIS expertise with the one that lies in the field of
 AI, often based in departments of computer science rather than geography.
 
@@ -120,7 +119,6 @@ expansion, densification and overall change of the shape of cities. This is a po
 application that is not limited to spatial signatures but can be extended to any
 classification of urban environments.
 
-
 When using openly available satellite data that are currently limited to the resolution
 of 10 meters per pixel at best, and classification focusing on primarily urban landscape,
 our results show both potential and limits. Accuracy is not far from
@@ -129,7 +127,7 @@ data set and possible inclusion of other available bands (like near-infrared) in
 A limitation in decreased performance when it comes to distinction between urban areas that
 are neither too dense nor too sparse but show different form and function profiles. It is
 either a difference that is not visible on imagery (e.g. more driven by function) or a
-limitation of the available resolution and / or training data volume. This issue could have
+limitation of the available resolution and/or training data volume. This issue could have
 been primarily driven by the nature of spatial signatures as a classification target, and
 it shall be tested on other types of urban classification in the future.
 
